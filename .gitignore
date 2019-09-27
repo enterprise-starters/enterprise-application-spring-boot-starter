@@ -1,0 +1,15 @@
+target/
+.classpath
+.settings/
+.project
+.springBeans
+.checkstyle
+/.apt_generated/
+*.log
+*.factorypath
+*.iml
+.idea
+.editorconfig
+application.port
+.pmd
+.pmdruleset.xml

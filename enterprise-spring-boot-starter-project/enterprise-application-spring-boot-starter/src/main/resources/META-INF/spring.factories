@@ -1,0 +1,8 @@
+org.springframework.boot.env.PropertySourceLoader=\
+de.enterprise.spring.boot.application.starter.properties.springboot.env.EncryptedPropertySourceLoader
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+de.enterprise.spring.boot.application.starter.logging.LoggingAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.tracing.TracingAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.clustering.HazelcastAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.exception.rest.RestExceptionHandlerAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.actuate.ActuatorAutoConfiguration

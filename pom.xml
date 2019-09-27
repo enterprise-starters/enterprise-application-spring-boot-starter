@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>de.enterprise.spring-boot</groupId>
+	<artifactId>enterprise-spring-boot-starter-build</artifactId>
+	<version>0.1.2-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+	<description>Enterprise Spring Boot Starter Build</description>
+
+	<modules>
+		<module>enterprise-spring-boot-starter-project</module>
+	</modules>
+
+	<scm>
+	    <connection>scm:git:ssh://git@gitlab.k8s.enterprise-cloud.de:8080/enterprise-essentials/enterprise-spring-boot-starter.git</connection>
+		<developerConnection>scm:git:ssh://git@gitlab.k8s.enterprise-cloud.de:8080/enterprise-essentials/enterprise-spring-boot-starter.git</developerConnection>
+		<tag>master</tag>
+		<url>http://gitlab.k8s.enterprise-cloud.de/enterprise-essentials/enterprise-spring-boot-starter</url>
+	</scm>
+	
+	<distributionManagement>
+		<repository>
+			<id>enterprise-releases</id>
+			<url>https://nexus.k8s.enterprise-cloud.de/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>enterprise-snapshots</id>
+			<url>https://nexus.k8s.enterprise-cloud.de/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<developers>
+		<developer>
+			<name>Enterprise Starter Experts</name>
+			<organization>tbd</organization>
+		</developer>
+	</developers>
+	
+	<properties>
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+	</properties>
+	
+	<profiles>
+		<profile>
+			<id>build</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-release-plugin</artifactId>
+						<version>${maven-release-plugin.version}</version>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
