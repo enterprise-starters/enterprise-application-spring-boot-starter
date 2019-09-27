@@ -36,9 +36,9 @@ Insgesamt bietet das Enterprise-Starter-Projekt eine sehr gute Basis für die En
 - Spring Boot 2
 - Maven
 
-## Wie nutze ich den Enterprise-Starter beim Kunden?
-4. Jeder Entwickler muss seine Entwicklungsumgebung einrichten. Die Anleitung dazu ist in der [readme.md von build-tools](./enterprise-spring-boot-starter-project/enterprise-build-tools/readme.md) zu finden. 
-4. Für jeden Service (Spring-Boot-Anwendung) der entwickelt wird, sind gewisse Schritte notwendig, um den des Enterprise-Starter in die Anwendung zu integrieren. Diese sind [hier](./enterprise-spring-boot-starter-project/docs/howto-integrate.md) beschrieben.
+## Wie nutze ich den Enterprise-Starter?
+1. Jeder Entwickler muss seine Entwicklungsumgebung einrichten. Die Anleitung dazu ist in der [readme.md von build-tools](./enterprise-spring-boot-starter-project/enterprise-build-tools/readme.md) zu finden. 
+2. Für jeden Service (Spring-Boot-Anwendung) der entwickelt wird, sind gewisse Schritte notwendig, um den des Enterprise-Starter in die Anwendung zu integrieren. Diese sind [hier](./enterprise-spring-boot-starter-project/docs/howto-integrate.md) beschrieben.
 
 # Dokumentationen <!-- und Tutorials -->
 
