@@ -42,14 +42,15 @@ Insgesamt bietet das Enterprise-Starter-Projekt eine sehr gute Basis für die En
 
 # Dokumentationen <!-- und Tutorials -->
 
-<!--
 ## Tutorials
-Die Idee der Tutorials ist, die Features der Enterprise-Starter-Toolbox aufzuzeigen. Jedes Tutorial ist so konzipiert, dass es Schritt für Schritt nachprogrammiert werden kann. Zu jedem Turorial gibt es ein separates Git-Repository, in dem der zugehörige Quellcode abgelegt ist. Jeder Schritt aus dem Tutorial ist dort in der Commit-Historie nachvollziehbar.
+Die Idee der Tutorials ist, die Features der Enterprise-Starter-Toolbox aufzuzeigen. Jedes Tutorial ist so konzipiert, dass es Schritt für Schritt nachprogrammiert werden kann. Zu jedem Turorial gibt es ein separates Git-Repository, in dem der zugehörige Quellcode abgelegt ist.
+<!--
+Jeder Schritt aus dem Tutorial ist dort in der Commit-Historie nachvollziehbar.
+-->
 
 Folgende Tutorials gibt es zum Enterprise-Spring-Boot-Starter:
 - [Basis Tutorial](./enterprise-spring-boot-starter-project/docs/tutorial-basics.md)
 - [Tutorial Clustering](./enterprise-spring-boot-starter-project/docs/tutorial-clustering.md)
--->
 
 <!--- - TODO Tutorial Service 2 Service Security -->
 <!---
