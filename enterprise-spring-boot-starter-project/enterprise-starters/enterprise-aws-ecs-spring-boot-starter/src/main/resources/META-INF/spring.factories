@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+de.enterprise.starters.aws.ecs.sqs.SqsAutoConfiguration,\
+de.enterprise.starters.aws.ecs.clustering.hazelcast.HazelcastAwsEcsAutoconfiguration
