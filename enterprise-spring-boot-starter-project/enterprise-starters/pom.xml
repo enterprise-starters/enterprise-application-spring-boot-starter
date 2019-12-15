@@ -17,6 +17,7 @@
 
 	<modules>
 		<module>enterprise-aws-ecs-spring-boot-starter</module>
+		<module>enterprise-azure-spring-boot-starter</module>
 	</modules>
 
 </project>
