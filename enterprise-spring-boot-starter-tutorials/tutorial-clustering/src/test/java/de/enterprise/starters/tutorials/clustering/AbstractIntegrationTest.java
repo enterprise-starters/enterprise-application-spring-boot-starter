@@ -7,7 +7,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import de.enterprise.spring.boot.application.starter.application.AbstractApplication;
-import de.enterprise.starters.tutorials.clustering.TutorialClusteringApplication;
 
 /**
  *
