@@ -1,14 +1,14 @@
 package de.enterprise.spring.boot.application.starter.exception;
 
-import de.enterprise.spring.boot.common.exception.TechnicalException;
+import org.springframework.http.HttpStatus;
 
 /**
  * Own implementation to handle bad requests.
- * 
+ *
  * @author Malte Geßner
  *
  */
-public class BadRequestException extends TechnicalException {
+public class BadRequestException extends HttpStatusException {
 
 	private static final long serialVersionUID = -8117851683986681378L;
 
@@ -26,6 +26,11 @@ public class BadRequestException extends TechnicalException {
 
 	public BadRequestException(String code, String description) {
 		super(code, description);
+	}
+
+	@Override
+	public HttpStatus getHttpStatus() {
+		return HttpStatus.BAD_REQUEST;
 	}
 
 }
