@@ -13,11 +13,12 @@
 	</parent>
 
 	<packaging>pom</packaging>
-	<description>Enterprise Spring Boot Starter</description>
+	<description>Enterprise Spring Boot Starters</description>
 
 	<modules>
 		<module>enterprise-aws-ecs-spring-boot-starter</module>
 		<module>enterprise-azure-spring-boot-starter</module>
+		<module>enterprise-kubernetes-spring-boot-starter</module>
 	</modules>
 
 </project>
