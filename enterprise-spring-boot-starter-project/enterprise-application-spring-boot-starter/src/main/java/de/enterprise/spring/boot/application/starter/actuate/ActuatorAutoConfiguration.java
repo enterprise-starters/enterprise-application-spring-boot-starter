@@ -79,7 +79,7 @@ public class ActuatorAutoConfiguration {
 	@Configuration
 	public class H2ConsoleSecurityConfig extends WebSecurityConfigurerAdapter {
 		/**
-		 * H2ConsoleProperties are empty if not explicitly configured and spring-boot-dev-tools aktivated.
+		 * H2ConsoleProperties are empty if not explicitly configured and spring-boot-dev-tools activated.
 		 */
 		@Autowired(required = false)
 		private H2ConsoleProperties h2ConsoleProperties;
