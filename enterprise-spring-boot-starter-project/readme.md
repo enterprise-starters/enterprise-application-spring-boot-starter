@@ -21,4 +21,4 @@ Maven-Abhängigkeiten und Konfigurationen für den Build-Prozess von Startern
 - __enterprise-application-spring-boot-starter__ <br>
 Herzstück, der "eigentliche" Enterprise-Starter. 
 
-Die beiden Artefakte __enterprise-aws-starter__ und __enterprise-kubernetes-starter__ zeigen exemplarisch, dass weitere (bereits bestehende oder noch zu entwickelnde) Starter den _enterprise-starter-parent_ als Maven-Parent verwenden sollen.
+Die beiden Artefakte __enterprise-aws-starter__ und __enterprise-kubernetes-starter__ zeigen exemplarisch, dasswie weitere (bereits bestehende oder noch zu entwickelnde) Starter den _enterprise-starter-parent_ als Maven-Parent verwenden, und - falls notwendig - den _enterprise-application-spring-boot-starter_ als Abhängigkeit einbinden.

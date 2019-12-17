@@ -23,6 +23,7 @@
 		<module>enterprise-application-parent</module>
 		<module>enterprise-starter-parent</module>
 		<module>enterprise-application-spring-boot-starter</module>
+		<module>enterprise-starters</module>
 	</modules>
 
 </project>

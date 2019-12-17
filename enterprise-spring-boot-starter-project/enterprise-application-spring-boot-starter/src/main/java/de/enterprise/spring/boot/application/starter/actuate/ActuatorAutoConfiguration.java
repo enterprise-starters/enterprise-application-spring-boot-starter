@@ -7,6 +7,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCusto
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.info.InfoEndpoint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -40,21 +41,6 @@ public class ActuatorAutoConfiguration {
 	@ConditionalOnEnabledEndpoint
 	public DocumentationMvcEndpoint documentationMvcEndpoint() {
 		return new DocumentationMvcEndpoint();
-	}
-
-	@Bean
-	MeterRegistryCustomizer<MeterRegistry> metricsCommonTags(Environment environment, ActuatorProperties actuatorProperties) {
-		return registry -> {
-			Config config = registry.config().commonTags("profiles", StringUtils.join(environment.getActiveProfiles(), ","));
-
-			if (StringUtils.isNotBlank(actuatorProperties.getInstanceCommonTagValue())) {
-				config.commonTags("instance", actuatorProperties.getInstanceCommonTagValue());
-			}
-
-			if (StringUtils.isNotBlank(actuatorProperties.getVersionCommonTagValue())) {
-				config.commonTags("version", actuatorProperties.getVersionCommonTagValue());
-			}
-		};
 	}
 
 	@Bean
@@ -93,7 +79,7 @@ public class ActuatorAutoConfiguration {
 	@Configuration
 	public class H2ConsoleSecurityConfig extends WebSecurityConfigurerAdapter {
 		/**
-		 * H2ConsoleProperties are empty if not explicitly configured and spring-boot-dev-tools aktivated.
+		 * H2ConsoleProperties are empty if not explicitly configured and spring-boot-dev-tools activated.
 		 */
 		@Autowired(required = false)
 		private H2ConsoleProperties h2ConsoleProperties;
@@ -106,4 +92,31 @@ public class ActuatorAutoConfiguration {
 			http.requestMatchers().antMatchers(h2ConsolePath, h2ConsolePath + "/**").and().authorizeRequests().anyRequest().anonymous();
 		}
 	}
+
+	/**
+	 *
+	 * @author Jonas Keßler
+	 *
+	 */
+	@ConditionalOnClass(MeterRegistry.class)
+	@Configuration
+	public class MetricsConfig {
+
+		@Bean
+		MeterRegistryCustomizer<MeterRegistry> metricsCommonTags(Environment environment, ActuatorProperties actuatorProperties) {
+			return registry -> {
+				Config config = registry.config().commonTags("profiles", StringUtils.join(environment.getActiveProfiles(), ","));
+
+				if (StringUtils.isNotBlank(actuatorProperties.getInstanceCommonTagValue())) {
+					config.commonTags("instance", actuatorProperties.getInstanceCommonTagValue());
+				}
+
+				if (StringUtils.isNotBlank(actuatorProperties.getVersionCommonTagValue())) {
+					config.commonTags("version", actuatorProperties.getVersionCommonTagValue());
+				}
+			};
+		}
+
+	}
+
 }
