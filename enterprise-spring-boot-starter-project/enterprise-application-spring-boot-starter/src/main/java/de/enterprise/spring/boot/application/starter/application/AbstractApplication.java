@@ -7,6 +7,7 @@ import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
@@ -24,7 +25,7 @@ import de.enterprise.spring.boot.common.exception.TechnicalException;
  */
 @SpringBootApplication
 @EnableConfigurationProperties(EnterpriseApplicationProperties.class)
-public abstract class AbstractApplication {
+public abstract class AbstractApplication extends SpringBootServletInitializer {
 
 	/**
 	 * Profile for tests.
@@ -51,6 +52,11 @@ public abstract class AbstractApplication {
 
 	protected void run() {
 		this.configureApplication(new SpringApplicationBuilder(this.getClass())).application().run();
+	}
+
+	@Override
+	protected SpringApplicationBuilder createSpringApplicationBuilder() {
+		return this.configureApplication(new SpringApplicationBuilder(this.getClass()));
 	}
 
 	/**

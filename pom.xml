@@ -11,6 +11,7 @@
 
 	<modules>
 		<module>enterprise-spring-boot-starter-project</module>
+		<module>enterprise-spring-boot-starter-tutorials</module>
 	</modules>
 
 	<scm>

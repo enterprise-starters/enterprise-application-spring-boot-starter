@@ -6,7 +6,7 @@ import java.util.Properties;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 
 /**
- * 
+ *
  * @author Malte Geßner
  *
  */
@@ -22,7 +22,7 @@ public final class EncryptableProperties extends Properties {
 	 * <p>
 	 * Creates an <code>EncryptableProperties</code> instance which will use the passed { cipher} object to decrypt encrypted values.
 	 * </p>
-	 * 
+	 *
 	 * @param textEncryptor
 	 *            the { TextEncryptor} to be used do decrypt values. It can not be null.
 	 */
@@ -35,7 +35,7 @@ public final class EncryptableProperties extends Properties {
 	 * Creates an <code>EncryptableProperties</code> instance which will use the passed { StringEncryptor} object to decrypt encrypted
 	 * values, and the passed defaults as default values (may contain encrypted values).
 	 * </p>
-	 * 
+	 *
 	 * @param defaults
 	 *            default values for properties (may be encrypted).
 	 * @param textEncryptor
@@ -50,7 +50,7 @@ public final class EncryptableProperties extends Properties {
 	 * <p>
 	 * Obtains the property value for the specified key (see {@link Properties#getProperty(String)}), decrypting it if needed.
 	 * </p>
-	 * 
+	 *
 	 * @param key
 	 *            the property key
 	 * @return the (decrypted) value
@@ -67,7 +67,7 @@ public final class EncryptableProperties extends Properties {
 	 * <p>
 	 * If no value is found for the specified key, the default value will be returned (decrypted if needed).
 	 * </p>
-	 * 
+	 *
 	 * @param key
 	 *            the property key
 	 * @param defaultValue
@@ -83,7 +83,7 @@ public final class EncryptableProperties extends Properties {
 	 * <p>
 	 * Obtains the property value for the specified key (see {@link Hashtable#get(Object)}), decrypting it if needed.
 	 * </p>
-	 * 
+	 *
 	 * @param key
 	 *            the property key
 	 * @return the (decrypted) value
@@ -113,7 +113,7 @@ public final class EncryptableProperties extends Properties {
 
 	private static String getInnerEncryptedValue(final String value) {
 		String trimmed = value.trim();
-		return trimmed.substring(ENCRYPTED_VALUE_PREFIX.length(), (trimmed.length() - ENCRYPTED_VALUE_SUFFIX.length()));
+		return trimmed.substring(ENCRYPTED_VALUE_PREFIX.length(), trimmed.length() - ENCRYPTED_VALUE_SUFFIX.length());
 	}
 
 	private boolean isEncryptedValue(final String value) {

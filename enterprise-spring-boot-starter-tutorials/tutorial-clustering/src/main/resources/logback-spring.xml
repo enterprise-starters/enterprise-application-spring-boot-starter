@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration scan="true" scanPeriod="30 seconds">
+	<include resource="META-INF/logback-default.xml" />
+
+	<logger name="de.enterprise.starters" level="${log_level:-DEBUG}" />
+	<logger name="org.springframework.web" level="info" />
+	
+</configuration>

@@ -11,7 +11,7 @@ import javax.validation.Payload;
 
 /**
  * Validation annotation which can be used to evaluate objects with spring expression language (SpEL) expressions. Accepts any type.
- * 
+ *
  * @author Jonas Keßler
  */
 @Constraint(validatedBy = SpELAssertValidator.class)
