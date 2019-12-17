@@ -2,8 +2,8 @@ name: Java CI - JDK 11
 
 on:
   push:
-    branches:
-      - improvements_dXg
+  pull_request:
+    
 
 jobs:
   build:

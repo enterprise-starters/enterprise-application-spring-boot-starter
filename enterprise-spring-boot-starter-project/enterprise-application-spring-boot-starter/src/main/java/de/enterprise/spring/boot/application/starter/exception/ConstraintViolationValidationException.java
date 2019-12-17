@@ -31,7 +31,7 @@ public class ConstraintViolationValidationException extends ValidationException 
 			return "";
 		}
 
-		return violations.stream().map(v -> (v.getPropertyPath().toString() + ": " + v.getMessage()))
+		return violations.stream().map(v -> v.getPropertyPath().toString() + ": " + v.getMessage())
 				.collect(Collectors.joining("\r\n"));
 	}
 

@@ -18,7 +18,7 @@
 	</parent>
 	
 	<properties>
-		<jacoco.rule.complexity.coveredratio>0.100</jacoco.rule.complexity.coveredratio>
+		<jacoco.rule.complexity.coveredratio>0.000</jacoco.rule.complexity.coveredratio>
 	</properties>
 
 	<dependencies>

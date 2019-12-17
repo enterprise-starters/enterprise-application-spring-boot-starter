@@ -6,10 +6,11 @@
 		<property name="headerFile" value="${checkstyle.header.file}" />
 		<property name="fileExtensions" value="java" />
 	</module> -->
-<!-- 	<module name="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck">
+ 	<module name="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck">
 		<property name="lineSeparator" value="lf"/>
+		<property name="fileExtensions" value="java" />
 	</module>
- -->
+
 	<!-- All test classes class names should end with *Test.
 	Maven-surefire-plugin also allows some other, but *Tests is allowed, but did not work, so we decided to allow only one version.
 	Official maven-surefire-plugin inclusions: http://maven.apache.org/surefire/maven-surefire-plugin/examples/inclusion-exclusion.html -->

@@ -132,11 +132,11 @@ public class GlobalExceptionRestControllerHandler {
 		return new ResponseEntity<>(new ExceptionWrapper(ex), defaultHeaders(servletRequest), status);
 	}
 
-	private String logMessageFromStatusAndException(HttpStatus responseStatus) {
+	public static String logMessageFromStatusAndException(HttpStatus responseStatus) {
 		return "Returning " + responseStatus.value() + " - " + responseStatus.getReasonPhrase() + ". Exception caught:";
 	}
 
-	private HttpHeaders defaultHeaders(HttpServletRequest servletRequest) {
+	public static HttpHeaders defaultHeaders(HttpServletRequest servletRequest) {
 		boolean applicationXmlFound = containsHeaderValue(servletRequest, MediaType.APPLICATION_XML_VALUE);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -148,7 +148,7 @@ public class GlobalExceptionRestControllerHandler {
 		return headers;
 	}
 
-	private boolean containsHeaderValue(HttpServletRequest servletRequest, String mediaTypeValue) {
+	public static boolean containsHeaderValue(HttpServletRequest servletRequest, String mediaTypeValue) {
 		boolean acceptHeaderFound = false;
 		Enumeration<String> acceptHeaderValues = servletRequest.getHeaders(HttpHeaders.ACCEPT);
 		while (acceptHeaderValues.hasMoreElements()) {
@@ -162,7 +162,7 @@ public class GlobalExceptionRestControllerHandler {
 		return acceptHeaderFound;
 	}
 
-	private boolean checkCommaSeparatedHeader(String headerContent, String searchTerm) {
+	public static boolean checkCommaSeparatedHeader(String headerContent, String searchTerm) {
 		boolean result = false;
 		String[] splitted = headerContent.split(",");
 		for (String s : splitted) {
