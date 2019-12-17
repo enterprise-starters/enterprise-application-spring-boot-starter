@@ -6,6 +6,7 @@ on:
       - master
       - add-other-starters
       - improvements_vXXXXa
+  pull_request:
 
 jobs:
   build:
