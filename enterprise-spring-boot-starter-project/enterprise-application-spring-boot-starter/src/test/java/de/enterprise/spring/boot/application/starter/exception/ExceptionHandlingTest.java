@@ -37,8 +37,11 @@ public class ExceptionHandlingTest {
 
 	@Test
 	public void resourceNotFoundException_withoutCode() throws Exception {
-		this.mvc.perform(get("/exceptions?exception=ResourceNotFoundException").with(httpBasic("test", "hallo"))).andDo(print())
-				.andExpect(status().isNotFound()).andExpect(MockMvcResultMatchers.content().string(Matchers.isEmptyOrNullString()));
+		this.mvc.perform(get("/exceptions?exception=ResourceNotFoundException").with(httpBasic("test", "hallo")))
+				.andDo(print())
+				.andExpect(status().isNotFound())
+				// ResourceNotFoundException without code results in a empty response body
+				.andExpect(MockMvcResultMatchers.content().string(Matchers.isEmptyOrNullString()));
 	}
 
 	@Test
@@ -49,8 +52,8 @@ public class ExceptionHandlingTest {
 				.andDo(print())
 				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$").isNotEmpty())
-				.andExpect(jsonPath("$.code", Matchers.is(code)))
-				.andExpect(jsonPath("$.message").doesNotExist());
+				.andExpect(jsonPath("$.*", Matchers.hasSize(1)))
+				.andExpect(jsonPath("$.code", Matchers.is(code)));
 	}
 
 	@Test
@@ -94,6 +97,7 @@ public class ExceptionHandlingTest {
 				.andExpect(statusMatcher.get())
 				.andExpect(MockMvcResultMatchers.header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$").isNotEmpty())
+				.andExpect(jsonPath("$.*", Matchers.hasSize(2)))
 				.andExpect(jsonPath("$.code", Matchers.is(code)))
 				.andExpect(jsonPath("$.message", Matchers.is(message)));
 
@@ -140,9 +144,39 @@ public class ExceptionHandlingTest {
 				.andDo(print())
 				.andExpect(status().isUnprocessableEntity())
 				.andExpect(jsonPath("$").isNotEmpty())
+				.andExpect(jsonPath("$.*", Matchers.hasSize(3)))
 				.andExpect(jsonPath("$.code", Matchers.is("900")))
 				.andExpect(jsonPath("$.message", Matchers.is("dataContainer")))
 				.andExpect(jsonPath("$.values.count", Matchers.is("must be less than or equal to 10")));
+	}
+
+	// error body should have same structure as above
+	@Test
+	public void handleConstraintViolationValidationException() throws Exception {
+		DataContainer dataContainer = new DataContainer(100, DataContainer.Status.NEW);
+		String jsonContent = this.objectMapper.writeValueAsString(dataContainer);
+
+		this.mvc.perform(post("/beanValidation2").content(jsonContent).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.with(httpBasic("test", "hallo")))
+				.andDo(print())
+				.andExpect(status().isUnprocessableEntity())
+				.andExpect(jsonPath("$").isNotEmpty())
+				.andExpect(jsonPath("$.*", Matchers.hasSize(3)))
+				.andExpect(jsonPath("$.code", Matchers.is("custom code")))
+				.andExpect(jsonPath("$.message", Matchers.is("count: must be less than or equal to 10")))
+				.andExpect(jsonPath("$.values.count", Matchers.is("must be less than or equal to 10")));
+	}
+
+	@Test
+	public void handleMissingServletRequestParameterException() throws Exception {
+		this.mvc.perform(get("/requireParameter")
+				.with(httpBasic("test", "hallo")))
+				.andDo(print())
+				.andExpect(status().isUnprocessableEntity())
+				.andExpect(jsonPath("$").isNotEmpty())
+				.andExpect(jsonPath("$.*", Matchers.hasSize(2)))
+				.andExpect(jsonPath("$.code", Matchers.is("902")))
+				.andExpect(jsonPath("$.message", Matchers.is("Required String parameter 'someParam' is not present")));
 	}
 
 	/*
