@@ -1,6 +1,5 @@
 # Enterprise-Spring-Boot-Starter
 
-
 ## Was ist der Enterprise-Starter?
 
 <!-- Fachlich -->
