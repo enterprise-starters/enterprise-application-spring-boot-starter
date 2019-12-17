@@ -19,7 +19,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<jacoco.rule.complexity.coveredratio>0.300</jacoco.rule.complexity.coveredratio>
 	</properties>
 
@@ -136,6 +136,12 @@
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<version>${jacoco-maven-plugin.version}</version>
+						<configuration>
+							<excludes>
+								<!-- Exclude main application class, as the main method is never tested in a spring integration test -->
+						        <exclude>**/*Application.*</exclude>
+						    </excludes>
+						</configuration>
 						<executions>
 							<execution>
 								<id>default-prepare-agent</id>

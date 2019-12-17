@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.4.RELEASE</version>
+		<version>2.1.10.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -26,18 +26,26 @@
 		
 		<hazelcast.version>3.11</hazelcast.version>
 		<hazelcast-kubernetes.version>1.3.1</hazelcast-kubernetes.version>
-		<spring-security-rsa.version>1.0.5.RELEASE</spring-security-rsa.version>
+		<spring-security-rsa.version>1.0.8.RELEASE</spring-security-rsa.version>
 		<checkstyle.version>8.8</checkstyle.version>
 		<wiremock.version>2.15.0</wiremock.version>
 		<resilience4j-spring-boot2.version>0.14.1</resilience4j-spring-boot2.version>
 
 		<swagger-annotations.version>1.5.14</swagger-annotations.version>
-		<jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
+		<jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
 		<swagger-maven-plugin.version>3.1.6</swagger-maven-plugin.version>
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 		<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
-		<maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
+		<maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
+		<maven-pmd-plugin.version>3.12.0</maven-pmd-plugin.version>
+		
+		<swagger.host>${project.artifactId}.cgi.com</swagger.host>
+		<swagger.basePath />
+		<swagger.info.title>${project.name} - API</swagger.info.title>
+		<swagger.info.version>${project.version}</swagger.info.version>
+		<swagger.info.description>${project.description}</swagger.info.description>
+		<swagger.info.contact.email>info@enterprise-starters.de</swagger.info.contact.email>
+		<swagger.info.contact.name>Enterprise Starters</swagger.info.contact.name>
 	</properties>
 
 	<distributionManagement>
@@ -127,15 +135,15 @@
 									<scheme>http</scheme>
 									<scheme>https</scheme>
 								</schemes>
-								<host>${project.artifactId}.enterprise.de</host>
-								<basePath>/</basePath>
+								<host>${swagger.host}</host>
+								<basePath>${swagger.basePath}</basePath>
 								<info>
-									<title>${project.name} - API</title>
-									<version>${project.version}</version>
-									<description>${project.description}</description>
+									<title>${swagger.info.title}</title>
+									<version>${swagger.info.version}</version>
+									<description>${swagger.info.description}</description>
 									<contact>
-										<email>info@enterprise.de</email>
-										<name>Enterprise IT Solutions</name>
+										<email>${swagger.info.contact.email}</email>
+										<name>${swagger.info.contact.name}</name>
 									</contact>
 								</info>
 								<templatePath>classpath:/swagger/strapdown.html.hbs</templatePath>

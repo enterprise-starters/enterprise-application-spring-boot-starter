@@ -1,6 +1,7 @@
 package de.enterprise.spring.boot.application.starter.logging;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ public class LoggingAutoConfiguration {
 	 *
 	 */
 	@Configuration
+	@ConditionalOnWebApplication
 	@ConditionalOnProperty(prefix = "enterprise-application.logging", name = "web-enabled", havingValue = "true", matchIfMissing = true)
 	public static class WebLoggingEnabled {
 
