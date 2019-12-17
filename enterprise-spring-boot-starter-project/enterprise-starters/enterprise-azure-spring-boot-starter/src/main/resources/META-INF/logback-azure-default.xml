@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+
+	<springProperty name="insights.appender.active" source="enterprise.azure.logging.application-insights-appender-enabled" />
+	<if condition='property("insights.appender.active").contains("false")'>
+	<!-- Umgedrehte Logik (false und else), da der Default true aus der Klasse AzureLogginProperties hier nicht gezogen wird -->
+        <else>
+			<springProperty name="insights.applicationkey" source="azure.application-insights.instrumentation-key" />
+			<appender name="AZURE_APPLICATION_INSIGHTS" class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
+		        <instrumentationKey>${insights.applicationkey}</instrumentationKey>
+			</appender>
+
+			<root level="INFO">
+				<appender-ref ref="AZURE_APPLICATION_INSIGHTS" />
+			</root>
+		</else>
+	</if>
+	
+</included>
