@@ -1,6 +1,11 @@
-name: Java CI
+name: Java CI - JDK 1.8
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+      - add-other-starters
+      - improvements_vXXXXa
 
 jobs:
   build:
