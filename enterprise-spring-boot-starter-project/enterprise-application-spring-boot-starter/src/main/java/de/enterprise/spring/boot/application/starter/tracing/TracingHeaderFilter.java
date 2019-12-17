@@ -6,6 +6,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -39,7 +40,11 @@ public class TracingHeaderFilter extends OncePerRequestFilter {
 	}
 
 	private String retrieveSessionId(HttpServletRequest request) {
-		return request.getSession().getId();
+		HttpSession session = request.getSession();
+		if (session != null) {
+			return session.getId();
+		}
+		return null;
 	}
 
 	@Override
