@@ -46,7 +46,7 @@ public abstract class AbstractApplication extends SpringBootServletInitializer {
 			throw new TechnicalException("no default properties found!", e);
 		}
 
-		return application.bannerMode(Mode.LOG).properties("spring.profiles.active=dev,dev-local," + System.getenv().get("COMPUTERNAME"))
+		return application.bannerMode(Mode.LOG).properties("spring.profiles.default=dev,dev-local," + System.getenv().get("COMPUTERNAME"))
 				.properties(defaultProperties);
 	}
 
