@@ -9,6 +9,7 @@ import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -49,6 +50,7 @@ public class ActuatorAutoConfiguration {
 		return new BCryptPasswordEncoder();
 	}
 
+	@ConditionalOnProperty(name = "enterprise-application.actuator.endpoint-security-enabled", havingValue = "true", matchIfMissing = true)
 	@Configuration
 	public class ActuatorSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		@Autowired
