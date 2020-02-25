@@ -1,16 +1,14 @@
 Verwendung
 ==========
-Der Enterprise-Spring-Boot-Application-Starter wird als Dependency eingebunden.
+Um die Features des Enterprise-Spring-Boot-Application-Starters zu nutzen, muss dieser als Dependency eingebunden werden.
 
 ```xml
 <dependency>
 	<groupId>de.enterprise.spring-boot</groupId>
 	<artifactId>enterprise-application-spring-boot-starter</artifactId>
-	<version>$version</version>
+	<version>{AKTUELLE VERSION}</version>
 </dependency>
 ```	
- 
-Dieser Starter soll zusammem mit dem `enterprise-application-parent` als Basis in jedem Spring Boot basierten Service verwendet werden.
 
 ---
 
