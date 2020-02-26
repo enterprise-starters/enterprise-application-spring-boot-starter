@@ -331,7 +331,7 @@ Das Verhalten kann über Properties beeinflusst werden:
 ```ini
 # Default properties 
 enterprise-application.tracing.enabled=true
-enterprise-application.tracing.request-header-name=X-Amzn-Trace-Id
+enterprise-application.tracing.request-header-name=X-Trace-Id
 enterprise-application.tracing.application-name=${enterprise-application.application.name}
 ```
 
