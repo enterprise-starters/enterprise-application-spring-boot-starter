@@ -42,14 +42,15 @@ Insgesamt bietet das Enterprise-Starter-Projekt eine sehr gute Basis für die En
 # Dokumentationen <!-- und Tutorials -->
 
 ## Tutorials
-Die Idee der Tutorials ist, die Features der Enterprise-Starter-Toolbox aufzuzeigen. Jedes Tutorial ist so konzipiert, dass es Schritt für Schritt nachprogrammiert werden kann. Zu jedem Turorial gibt es ein separates Git-Repository, in dem der zugehörige Quellcode abgelegt ist.
-<!--
+Die Idee der Tutorials ist, die Features der Enterprise-Starter-Toolbox aufzuzeigen. Jedes Tutorial ist so konzipiert, dass es Schritt für Schritt nachprogrammiert werden kann. 
+
+<!-- Zu jedem Turorial gibt es ein separates Git-Repository, in dem der zugehörige Quellcode abgelegt ist.
 Jeder Schritt aus dem Tutorial ist dort in der Commit-Historie nachvollziehbar.
 -->
 
 Folgende Tutorials gibt es zum Enterprise-Spring-Boot-Starter:
-- [Basis Tutorial](./enterprise-spring-boot-starter-project/docs/tutorial-basics.md)
-- [Tutorial Clustering](./enterprise-spring-boot-starter-project/docs/tutorial-clustering.md)
+- [Basis Tutorial](./enterprise-spring-boot-starter-tutorials/tutorial-basics/readme.md)
+- [Tutorial Clustering](./enterprise-spring-boot-starter-tutorials/tutorial-clustering/readme.md)
 
 <!--- - TODO Tutorial Service 2 Service Security -->
 <!---
@@ -74,4 +75,6 @@ Weitere Ideen für Tutorials
 - [Readme Enterprise-Spring-Boot-Starter-Project](./enterprise-spring-boot-starter-project/readme.md)
   - Übersicht Maven-Module
 - [Readme des Application-Starters](./enterprise-spring-boot-starter-project/enterprise-application-spring-boot-starter/README.md)
-  - Detaillierte Beschreibung der Features
+  - Detaillierte Beschreibung der Features des Application Starters
+- [Readme des Application-Parents](./enterprise-spring-boot-starter-project/enterprise-application-parent/README.md)
+  - Detaillierte Beschreibung der Features des Application Parents
