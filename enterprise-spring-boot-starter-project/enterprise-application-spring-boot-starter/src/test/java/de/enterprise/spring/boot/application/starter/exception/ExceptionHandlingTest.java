@@ -1,16 +1,20 @@
 package de.enterprise.spring.boot.application.starter.exception;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.function.Supplier;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,7 +45,7 @@ public class ExceptionHandlingTest {
 				.andDo(print())
 				.andExpect(status().isNotFound())
 				// ResourceNotFoundException without code results in a empty response body
-				.andExpect(MockMvcResultMatchers.content().string(Matchers.isEmptyOrNullString()));
+				.andExpect(content().string(is(emptyOrNullString())));
 	}
 
 	@Test
@@ -52,8 +56,8 @@ public class ExceptionHandlingTest {
 				.andDo(print())
 				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$").isNotEmpty())
-				.andExpect(jsonPath("$.*", Matchers.hasSize(1)))
-				.andExpect(jsonPath("$.code", Matchers.is(code)));
+				.andExpect(jsonPath("$.*", hasSize(1)))
+				.andExpect(jsonPath("$.code", is(code)));
 	}
 
 	@Test
@@ -95,11 +99,11 @@ public class ExceptionHandlingTest {
 						.with(httpBasic("test", "hallo")))
 				.andDo(print())
 				.andExpect(statusMatcher.get())
-				.andExpect(MockMvcResultMatchers.header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$").isNotEmpty())
-				.andExpect(jsonPath("$.*", Matchers.hasSize(2)))
-				.andExpect(jsonPath("$.code", Matchers.is(code)))
-				.andExpect(jsonPath("$.message", Matchers.is(message)));
+				.andExpect(jsonPath("$.*", hasSize(2)))
+				.andExpect(jsonPath("$.code", is(code)))
+				.andExpect(jsonPath("$.message", is(message)));
 
 		// other but application/xml accept header -> JSON
 		this.mvc.perform(
@@ -110,8 +114,8 @@ public class ExceptionHandlingTest {
 				.andExpect(statusMatcher.get())
 				.andExpect(MockMvcResultMatchers.header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(jsonPath("$").isNotEmpty())
-				.andExpect(jsonPath("$.code", Matchers.is(code)))
-				.andExpect(jsonPath("$.message", Matchers.is(message)));
+				.andExpect(jsonPath("$.code", is(code)))
+				.andExpect(jsonPath("$.message", is(message)));
 
 		// application/xml accept header -> XML
 		this.mvc.perform(
@@ -139,15 +143,15 @@ public class ExceptionHandlingTest {
 		DataContainer dataContainer = new DataContainer(100, DataContainer.Status.NEW);
 		String jsonContent = this.objectMapper.writeValueAsString(dataContainer);
 
-		this.mvc.perform(post("/beanValidation").content(jsonContent).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+		this.mvc.perform(post("/beanValidation").content(jsonContent).contentType(MediaType.APPLICATION_JSON_VALUE)
 				.with(httpBasic("test", "hallo")))
 				.andDo(print())
 				.andExpect(status().isUnprocessableEntity())
 				.andExpect(jsonPath("$").isNotEmpty())
-				.andExpect(jsonPath("$.*", Matchers.hasSize(3)))
-				.andExpect(jsonPath("$.code", Matchers.is("900")))
-				.andExpect(jsonPath("$.message", Matchers.is("dataContainer")))
-				.andExpect(jsonPath("$.values.count", Matchers.is("must be less than or equal to 10")));
+				.andExpect(jsonPath("$.*", hasSize(3)))
+				.andExpect(jsonPath("$.code", is("900")))
+				.andExpect(jsonPath("$.message", is("dataContainer")))
+				.andExpect(jsonPath("$.values.count", is("must be less than or equal to 10")));
 	}
 
 	// error body should have same structure as above
@@ -156,15 +160,15 @@ public class ExceptionHandlingTest {
 		DataContainer dataContainer = new DataContainer(100, DataContainer.Status.NEW);
 		String jsonContent = this.objectMapper.writeValueAsString(dataContainer);
 
-		this.mvc.perform(post("/beanValidation2").content(jsonContent).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+		this.mvc.perform(post("/beanValidation2").content(jsonContent).contentType(MediaType.APPLICATION_JSON_VALUE)
 				.with(httpBasic("test", "hallo")))
 				.andDo(print())
 				.andExpect(status().isUnprocessableEntity())
 				.andExpect(jsonPath("$").isNotEmpty())
-				.andExpect(jsonPath("$.*", Matchers.hasSize(3)))
-				.andExpect(jsonPath("$.code", Matchers.is("custom code")))
-				.andExpect(jsonPath("$.message", Matchers.is("count: must be less than or equal to 10")))
-				.andExpect(jsonPath("$.values.count", Matchers.is("must be less than or equal to 10")));
+				.andExpect(jsonPath("$.*", hasSize(3)))
+				.andExpect(jsonPath("$.code", is("custom code")))
+				.andExpect(jsonPath("$.message", is("count: must be less than or equal to 10")))
+				.andExpect(jsonPath("$.values.count", is("must be less than or equal to 10")));
 	}
 
 	@Test
@@ -174,9 +178,9 @@ public class ExceptionHandlingTest {
 				.andDo(print())
 				.andExpect(status().isUnprocessableEntity())
 				.andExpect(jsonPath("$").isNotEmpty())
-				.andExpect(jsonPath("$.*", Matchers.hasSize(2)))
-				.andExpect(jsonPath("$.code", Matchers.is("902")))
-				.andExpect(jsonPath("$.message", Matchers.is("Required String parameter 'someParam' is not present")));
+				.andExpect(jsonPath("$.*", hasSize(2)))
+				.andExpect(jsonPath("$.code", is("902")))
+				.andExpect(jsonPath("$.message", is("Required String parameter 'someParam' is not present")));
 	}
 
 	/*
@@ -192,13 +196,13 @@ public class ExceptionHandlingTest {
 		this.mvc.perform(
 				post("/beanValidation")
 						.content("{\"count\":10,\"status\":\"ABC\"}")
-						.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.with(httpBasic("test", "hallo")))
 				.andDo(print())
 				.andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$").isNotEmpty())
-				.andExpect(jsonPath("$.*", Matchers.hasSize(2)))
-				.andExpect(jsonPath("$.code", Matchers.is("901")))
-				.andExpect(jsonPath("$.message", Matchers.containsString("JSON parse error: Cannot deserialize value of type")));
+				.andExpect(jsonPath("$.*", hasSize(2)))
+				.andExpect(jsonPath("$.code", is("901")))
+				.andExpect(jsonPath("$.message", containsString("JSON parse error: Cannot deserialize value of type")));
 	}
 }

@@ -72,7 +72,6 @@
 			<artifactId>resilience4j-spring-boot2</artifactId>
 		</dependency>
 		
-		<!-- Wird in Azure zur Laufzeit (beim Starten) benötigt, lokal funktioniert es ohne.  -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>

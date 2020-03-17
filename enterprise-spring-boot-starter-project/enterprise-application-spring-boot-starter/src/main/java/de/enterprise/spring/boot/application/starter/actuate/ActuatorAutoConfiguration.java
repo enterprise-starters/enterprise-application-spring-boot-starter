@@ -2,13 +2,14 @@ package de.enterprise.spring.boot.application.starter.actuate;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -38,7 +39,7 @@ public class ActuatorAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	@ConditionalOnEnabledEndpoint
+	@ConditionalOnAvailableEndpoint
 	public DocumentationMvcEndpoint documentationMvcEndpoint() {
 		return new DocumentationMvcEndpoint();
 	}
@@ -49,6 +50,7 @@ public class ActuatorAutoConfiguration {
 		return new BCryptPasswordEncoder();
 	}
 
+	@ConditionalOnProperty(name = "enterprise-application.actuator.endpoint-security-enabled", havingValue = "true", matchIfMissing = true)
 	@Configuration
 	public class ActuatorSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		@Autowired

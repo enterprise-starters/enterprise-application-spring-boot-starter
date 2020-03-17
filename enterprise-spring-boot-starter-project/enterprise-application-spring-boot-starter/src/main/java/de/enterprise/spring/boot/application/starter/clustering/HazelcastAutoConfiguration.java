@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.health.HealthIndicatorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -133,7 +133,7 @@ public class HazelcastAutoConfiguration {
 
 	@Configuration
 	@ConditionalOnClass({ HazelcastInstance.class, HealthIndicator.class })
-	@AutoConfigureAfter({ HealthIndicatorAutoConfiguration.class })
+	@AutoConfigureAfter({ HealthContributorAutoConfiguration.class })
 	@ConditionalOnProperty(value = "management.health.hazelcast.enabled", matchIfMissing = true)
 	protected static class HazelcastHealthAutoConfiguration {
 

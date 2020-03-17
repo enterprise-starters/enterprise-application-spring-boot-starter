@@ -1,19 +1,23 @@
 # Integration des Enterprise-Starters in eine Spring-Boot-Anwendung
 
-Im Folgenden ist eine Step by Step Anleitung zu finden, wie der Enterprise-Starter in eine neue leere Spring-Boot-Anwendung integriert werden kann. Gerade wenn der Enterprise-Starter das erste mal verwendet wird, empfiehlt es sich die Schritte alle selber einmal durchzugehen.
+Im Folgenden ist eine Step by Step Anleitung zu finden, wie der Enterprise-Starter in eine Spring-Boot-Anwendung integriert werden kann. Gerade wenn der Enterprise-Starter das erste mal verwendet wird, empfiehlt es sich die Schritte alle selber einmal durchzugehen.
 
-Für die Eiligen, die direkt loslegen wollen, findet sich weiter unten das Kapitel _Enterprise-Starter Quick Start_.
+<!-- Für die Eiligen, die direkt loslegen wollen, findet sich weiter unten das Kapitel _Enterprise-Starter Quick Start_. -->
 
-Bevor mit der konkreten Entwicklung - also mit diesem Tutorial - losgelegt wird, sollte auf jeden Fall die [Anleitung zur Einrichtung der Arbeitsumgebung](../enterprise-build-tools/readme.md#einrichten-der-arbeitsumgebung) durchgearbeitet werden.
+Eine genauere Beschreibungen der Features findet sich in den readme-Dateien der einzelnen Starter-Bibiliotheken:
+- [Readme des enterprise-application-spring-boot-starter](../enterprise-application-spring-boot-starter/README.md)
+- [Readme des enterprise-application-parent](../enterprise-application-parent/README.md)
+
+Bevor mit der konkreten Entwicklung - also mit diesem Tutorial - losgelegt wird, empfiehlt es sich die [Anleitung zur Einrichtung der Arbeitsumgebung](../enterprise-build-tools/readme.md#einrichten-der-arbeitsumgebung) durchzuarbeiten.
+
+---
 
 # Step by Step Tutorial
 
-Dies ist eine Auflistung der einzelnen Schritte, die notwendig sind für die Integration der Enterprise-Starter-Bibliotheken in eine Anwendung.
-
-Für genauere Beschreibungen der Features ist ein Blick in die readme-Dateien der einzelnen Starter-Bibiliotheken sinnvoll, vor allem in die [Readme des enterprise-application-spring-boot-starter](../enterprise-application-spring-boot-starter/README.md).
+Dies ist eine Auflistung der einzelnen Schritte, die notwendig sind für die Integration des Enterprise-Application-Starters in eine Anwendung.
 
 Die notwendigen Schritte im Überblick:
-- Application-Starter und Application-Parent in pom.xml einbinden
+- Application-Starter in pom.xml einbinden
 - Verwenden der AbstractApplication
 - Property-Dateien anlegen
 - Logging mit Logback konfigurieren
@@ -21,8 +25,8 @@ Die notwendigen Schritte im Überblick:
 
 Zur initialen Anlage eines Spring-Boot-Projektes empfiehlt sich der Spring-Initializr, zum Beispiel zu verwenden über start.spring.io. Als Build-Tool sollte dort Maven ausgewählt werden.
 
-## Application-Starter und Application-Parent in pom.xml einbinden
-Jeder Microservice, der auf dem Enterprise-Starter basieren soll, muss den `enterprise-application-parent` als Maven-Parent und den `enterprise-application-spring-boot-starter` als Maven-Dependency einbinden.
+## Application-Starter in pom.xml einbinden
+Jeder Microservice, der auf dem Enterprise-Starter basieren soll, sollte den `enterprise-application-parent` als Maven-Parent und den `enterprise-application-spring-boot-starter` als Maven-Dependency einbinden.
 
 Beispiel `pom.xml`:
 
@@ -46,10 +50,43 @@ Beispiel `pom.xml`:
 ...
 ```
 
+Alternativ kann der Application-Starter auch ohne den Application-Parent verwendet werden. Dies ist notwendig, wenn ein anderer Maven-Parent verwendet werden soll, oder das Maven-Build-Profil aus dem Application-Parent nicht verwendet werden soll. 
+
+In diesen Fällen empfiehlt es sich, das Artefakt `enterprise-dependencies` als sog. BOM (Bill of Materials) einzubinden. Dadurch werden die Versionen der verwendeten Bibliotheken aus dem Artefakt `enterprise-dependencies` übernommen. Die `pom.xml` muss dann wie folgt angepasst werden:
+
+```xml
+... 
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>de.enterprise.spring-boot</groupId>
+            <artifactId>enterprise-dependencies</artifactId>
+            <version>{AKTUELLE VERSION}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement> 
+
+<dependencies>
+    <dependency>
+        <groupId>de.enterprise.spring-boot</groupId>
+        <artifactId>enterprise-application-spring-boot-starter</artifactId>
+        <version>{AKTUELLE VERSION}</version>
+    </dependency>
+    ...
+</dependencies>
+...
+```
+
+
 ## Verwenden der AbstractApplication
 Die Haupt-Application-Klasse, die bei einer herkömmlichen Spring-Boot-Anwendung mit `@SpringBootApplication` annotiert ist und die `main`-Methode enthält, muss wie folgt angepasst werden:
 
 ```java
+...
+import de.enterprise.spring.boot.application.starter.application.AbstractApplication;
+
 public class DemoServiceApplication extends AbstractApplication {
     public static void main(String[] args) {
         new DemoServiceApplication().run();
@@ -157,7 +194,9 @@ Zusätzlich wird für die Tests eine zweite Logback-Datei benötigt. Das liegt d
 Eine Integrationtest-Klasse muss wie folgt aussehen:
 
 ```java
-@ExtendWith(SpringExtension.class)
+...
+import de.enterprise.spring.boot.application.starter.application.AbstractApplication;
+
 @SpringBootTest(classes = DemoServiceApplication.class)
 @ActiveProfiles(AbstractApplication.INTEGRATION_TEST_PROFILE)
 public class DemoServiceApplicationTest {
@@ -201,6 +240,7 @@ Der Enterprise-Application-Starter definiert viele Default-Properties, die dann 
 ### Verwendung von Lombok
 - Zur Vermeidung von Boilerplate Code (Getter, Setter, etc) sollte Lombok verwendet werden.
 - Die Installation und notwendige Konfiguration ist in der [readme von enterprise-build-tools](../enterprise-build-tools/readme.md#lombok) beschrieben.
+- Bei Verwendung des enterprise-application-parent ist Lombok bereits als Dependency konfiguriert.
 
 ### Erzeugen eines Projekt-Banners
 

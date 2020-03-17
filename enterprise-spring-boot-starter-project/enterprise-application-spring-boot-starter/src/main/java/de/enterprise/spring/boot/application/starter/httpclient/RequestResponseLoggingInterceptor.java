@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @see <a href="https://objectpartners.com/2018/03/01/log-your-resttemplate-request-and-response-without-destroying-the-body/">link</a>
  */
-@Slf4j
+@Slf4j(topic = "request-logger-outbound")
 public class RequestResponseLoggingInterceptor implements ClientHttpRequestInterceptor {
 
 	@Override
@@ -44,7 +44,10 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 			msg.append("Outgoing REST request with requestUuid=").append(requestUuid).append("\r\n")
 					.append(requestdetails).append("\r\n")
 					.append("headers=").append(request.getHeaders());
-			if (body.length > 0) {
+			// TODO über Property steuerbar machen!?
+			boolean skipLogBody = request.getHeaders().getContentType() != null
+					&& "multipart".equals(request.getHeaders().getContentType().getType());
+			if (!skipLogBody && body.length > 0) {
 				msg.append("\r\n").append("requestBody=").append(new String(body, "UTF-8"));
 			}
 			log.info(msg.toString());
