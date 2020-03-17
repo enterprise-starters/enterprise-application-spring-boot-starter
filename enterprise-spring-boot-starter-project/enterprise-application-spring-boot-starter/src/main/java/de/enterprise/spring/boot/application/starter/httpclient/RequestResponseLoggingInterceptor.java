@@ -23,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j(topic = "request-logger-outbound")
 public class RequestResponseLoggingInterceptor implements ClientHttpRequestInterceptor {
 
+	private static final String VALUE_SEPARATOR = "; ";
+
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
 		String requestUuid = UUID.randomUUID().toString();
@@ -36,19 +38,19 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 		String requestdetails = "";
 		if (log.isInfoEnabled()) {
 			StringBuilder requestDetailsBuilder = new StringBuilder();
-			requestDetailsBuilder.append("method=").append(request.getMethod()).append(";")
+			requestDetailsBuilder.append("method=").append(request.getMethod()).append(VALUE_SEPARATOR)
 					.append("uri=").append(request.getURI());
 			requestdetails = requestDetailsBuilder.toString();
 
 			StringBuilder msg = new StringBuilder();
-			msg.append("Outgoing REST request with requestUuid=").append(requestUuid).append("\r\n")
-					.append(requestdetails).append("\r\n")
+			msg.append("Outgoing REST request with requestUuid=").append(requestUuid).append(VALUE_SEPARATOR)
+					.append(requestdetails).append(VALUE_SEPARATOR)
 					.append("headers=").append(request.getHeaders());
 			// TODO über Property steuerbar machen!?
 			boolean skipLogBody = request.getHeaders().getContentType() != null
 					&& "multipart".equals(request.getHeaders().getContentType().getType());
 			if (!skipLogBody && body.length > 0) {
-				msg.append("\r\n").append("requestBody=").append(new String(body, "UTF-8"));
+				msg.append(VALUE_SEPARATOR).append("requestBody=").append(new String(body, "UTF-8"));
 			}
 			log.info(msg.toString());
 		}
@@ -58,15 +60,16 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 	private void logResponse(String requestUuid, String requestDetails, ClientHttpResponse response) throws IOException {
 		if (log.isInfoEnabled()) {
 			StringBuilder msg = new StringBuilder();
-			msg.append("Incoming REST response with requestUuid=").append(requestUuid).append("\r\n")
-					.append(requestDetails).append("\r\n")
-					.append("statusCode=").append(response.getStatusCode()).append(";")
-					.append("statusText=").append(response.getStatusText()).append("\r\n")
+			msg.append("Incoming REST response with requestUuid=").append(requestUuid).append(VALUE_SEPARATOR)
+					.append(requestDetails).append(VALUE_SEPARATOR)
+					.append("statusCode=").append(response.getStatusCode()).append(VALUE_SEPARATOR)
+					.append("statusText=").append(response.getStatusText()).append(VALUE_SEPARATOR)
 					.append("headers=").append(response.getHeaders());
 
 			String responseBody = StreamUtils.copyToString(response.getBody(), Charset.defaultCharset());
 			if (!StringUtils.isBlank(responseBody)) {
-				msg.append("\r\n").append("responseBody=").append(StreamUtils.copyToString(response.getBody(), Charset.defaultCharset()));
+				msg.append(VALUE_SEPARATOR).append("responseBody=")
+						.append(StreamUtils.copyToString(response.getBody(), Charset.defaultCharset()));
 			}
 			log.info(msg.toString());
 		}
