@@ -28,7 +28,7 @@ public class TracingAutoConfiguration {
 
 	@Bean
 	public FilterRegistrationBean<TracingHeaderFilter> tracingHeaderFilter(TracingProperties tracingProperties) {
-		log.info("tracing header filter enabled, using requestHeaderName:{}, mdcKey:{}", tracingProperties.getRequestHeaderName(),
+		log.debug("tracing header filter enabled, using requestHeaderName:{}, mdcKey:{}", tracingProperties.getRequestHeaderName(),
 				tracingProperties.getMdcKey());
 
 		TracingHeaderFilter filter = new TracingHeaderFilter(tracingProperties);
