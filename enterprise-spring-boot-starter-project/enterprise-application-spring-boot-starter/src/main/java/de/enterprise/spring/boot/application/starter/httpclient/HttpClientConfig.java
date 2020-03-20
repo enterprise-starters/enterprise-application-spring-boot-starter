@@ -97,7 +97,7 @@ public class HttpClientConfig {
 				|| this.logDetailsEnabled == null && this.loggingProperties.isLogOutgoingRequestDetailsEnabled()) {
 			this.restTemplateBuilder = this.restTemplateBuilder
 					.requestFactory(() -> new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()))
-					.additionalInterceptors(new RequestResponseLoggingInterceptor());
+					.additionalInterceptors(new RequestResponseLoggingInterceptor(this.loggingProperties));
 		}
 
 		if (customizedMessageConverters.length == 0) {

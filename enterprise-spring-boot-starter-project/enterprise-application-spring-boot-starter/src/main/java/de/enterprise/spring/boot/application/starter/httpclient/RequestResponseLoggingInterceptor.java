@@ -1,16 +1,22 @@
 package de.enterprise.spring.boot.application.starter.httpclient;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.StreamUtils;
 
+import de.enterprise.spring.boot.application.starter.logging.LoggingProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -21,9 +27,12 @@ import lombok.extern.slf4j.Slf4j;
  * @see <a href="https://objectpartners.com/2018/03/01/log-your-resttemplate-request-and-response-without-destroying-the-body/">link</a>
  */
 @Slf4j(topic = "request-logger-outbound")
+@RequiredArgsConstructor
 public class RequestResponseLoggingInterceptor implements ClientHttpRequestInterceptor {
 
 	private static final String VALUE_SEPARATOR = "; ";
+
+	private final LoggingProperties loggingProperties;
 
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
@@ -39,13 +48,13 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 		if (log.isInfoEnabled()) {
 			StringBuilder requestDetailsBuilder = new StringBuilder();
 			requestDetailsBuilder.append("method=").append(request.getMethod()).append(VALUE_SEPARATOR)
-					.append("uri=").append(request.getURI());
+					.append("uri=").append(maskSensitiveParamters(request.getURI()));
 			requestdetails = requestDetailsBuilder.toString();
 
 			StringBuilder msg = new StringBuilder();
 			msg.append("Outgoing REST request with requestUuid=").append(requestUuid).append(VALUE_SEPARATOR)
 					.append(requestdetails).append(VALUE_SEPARATOR)
-					.append("headers=").append(request.getHeaders());
+					.append("headers=").append(maskSensitiveHeaders(request.getHeaders()));
 			// TODO über Property steuerbar machen!?
 			boolean skipLogBody = request.getHeaders().getContentType() != null
 					&& "multipart".equals(request.getHeaders().getContentType().getType());
@@ -73,5 +82,56 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 			}
 			log.info(msg.toString());
 		}
+	}
+
+	/**
+	 * Creates a copy of the incoming headers object, replacing all sensitive headers with stars. If list of sensitive header keys is empty,
+	 * the original object is returned.
+	 *
+	 * @param headers
+	 *            Incoming header, can contain sensitive values.
+	 * @return Result, with masked sensitive values.
+	 */
+	private HttpHeaders maskSensitiveHeaders(HttpHeaders headers) {
+
+		List<String> keysToMask = this.loggingProperties.getSensitiveOutgoingHeaders();
+		if (keysToMask == null || keysToMask.isEmpty()) {
+			return headers;
+		}
+
+		HttpHeaders map = new HttpHeaders();
+		headers.forEach((key, value) -> {
+			if (keysToMask.contains(key)) {
+				map.put(key, value.stream().map(v -> "*".repeat(v.length())).collect(Collectors.toList()));
+			} else {
+				map.put(key, value);
+			}
+		});
+		return map;
+	}
+
+	private String maskSensitiveParamters(URI uri) {
+		List<String> keysToMask = this.loggingProperties.getSensitiveRequestParameters();
+
+		String result = uri.toString();
+		if (StringUtils.isEmpty(uri.getRawQuery()) || keysToMask == null || keysToMask.isEmpty()) {
+			return result;
+		}
+
+		String[] params = uri.getRawQuery().split("&");
+		for (int i = 0; i < params.length; i++) {
+			String param = params[i];
+			String[] keyValue = param.split("=");
+			String key = keyValue[0];
+			if (keyValue.length == 2) {
+				String value = keyValue[1];
+				if (keysToMask.contains(key)) {
+					String newParam = key + "=" + "*".repeat(value.length());
+					result = result.replace("?" + param, "?" + newParam);
+					result = result.replace("&" + param, "&" + newParam);
+				}
+			}
+		}
+		return result;
 	}
 }

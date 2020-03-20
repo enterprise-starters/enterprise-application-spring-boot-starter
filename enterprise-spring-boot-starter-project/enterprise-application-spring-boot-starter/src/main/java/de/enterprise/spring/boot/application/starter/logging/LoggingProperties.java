@@ -1,5 +1,7 @@
 package de.enterprise.spring.boot.application.starter.logging;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -48,4 +50,8 @@ public class LoggingProperties {
 	 * Outgoing Requests (RestTemplate)
 	 */
 	private boolean logOutgoingRequestDetailsEnabled = false;
+	private List<String> sensitiveRequestParameters;
+	private List<String> sensitiveOutgoingHeaders;
+
+	// TODO: Struktur einführen, um Properties für RestTemplate und Controller besser unterscheiden zu können
 }
