@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.enterprise.spring-boot</groupId>
+	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-spring-boot-starter-build</artifactId>
 	<version>0.1.2-SNAPSHOT</version>
-
 	<packaging>pom</packaging>
+
 	<description>Enterprise Spring Boot Starter Build</description>
+	<url>https://github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
 
 	<modules>
 		<module>enterprise-spring-boot-starter-project</module>
@@ -15,12 +18,18 @@
 	</modules>
 
 	<scm>
-	    <connection>scm:git:ssh://git@gitlab.k8s.enterprise-cloud.de:8080/enterprise-essentials/enterprise-spring-boot-starter.git</connection>
-		<developerConnection>scm:git:ssh://git@gitlab.k8s.enterprise-cloud.de:8080/enterprise-essentials/enterprise-spring-boot-starter.git</developerConnection>
-		<tag>master</tag>
-		<url>http://gitlab.k8s.enterprise-cloud.de/enterprise-essentials/enterprise-spring-boot-starter</url>
+		<connection>scm:git:git://github.com/enterprise-starters/enterprise-application-spring-boot-starter.git</connection>
+		<developerConnection>scm:git:ssh://github.com:enterprise-starters/enterprise-application-spring-boot-starter.git</developerConnection>
+		<url>https://github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
 	</scm>
-	
+
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
 	<distributionManagement>
 		<repository>
 			<id>enterprise-releases</id>
@@ -38,11 +47,13 @@
 			<organization>tbd</organization>
 		</developer>
 	</developers>
-	
+
 	<properties>
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
-	
+
 	<profiles>
 		<profile>
 			<id>build</id>
@@ -59,5 +70,39 @@
 			</build>
 		</profile>
 	</profiles>
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-release</id>
+			<name>Spring release</name>
+			<url>https://repo.spring.io/release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-snapshot</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestone</id>
+			<name>Spring Milestone</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 </project>

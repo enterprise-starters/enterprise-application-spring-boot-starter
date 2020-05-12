@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.enterprise.spring-boot</groupId>
+	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-spring-boot-starter-project</artifactId>
 	<version>0.1.2-SNAPSHOT</version>
 	
 	<parent>
-		<groupId>de.enterprise.spring-boot</groupId>
+		<groupId>de.enterprise-starters</groupId>
 		<artifactId>enterprise-spring-boot-starter-build</artifactId>
 		<version>0.1.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>

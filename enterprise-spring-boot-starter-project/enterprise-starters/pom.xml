@@ -7,7 +7,7 @@
 	<version>0.1.2-SNAPSHOT</version>
 	
 	<parent>
-		<groupId>de.enterprise.spring-boot</groupId>
+		<groupId>de.enterprise-starters</groupId>
 		<artifactId>enterprise-spring-boot-starter-project</artifactId>
 		<version>0.1.2-SNAPSHOT</version>
 	</parent>
@@ -19,6 +19,8 @@
 		<module>enterprise-aws-ecs-spring-boot-starter</module>
 		<module>enterprise-azure-spring-boot-starter</module>
 		<module>enterprise-kubernetes-spring-boot-starter</module>
+		<module>enterprise-mongodb-spring-boot-starter</module>
+		<module>enterprise-jpa-spring-boot-starter</module>
 	</modules>
 
 </project>

@@ -248,7 +248,7 @@ public class ResilientMessageListenerContainer extends SimpleMessageListenerCont
 					ReceiveMessageRequest request = this.queueAttributes.getReceiveMessageRequest();
 
 					// sleep a while if circuit is opened
-					if (!this.circuitBreaker.isCallPermitted()) {
+					if (!this.circuitBreaker.tryAcquirePermission()) {
 
 						try {
 							int sleep = 1000;
@@ -355,7 +355,7 @@ public class ResilientMessageListenerContainer extends SimpleMessageListenerCont
 			org.springframework.messaging.Message<String> queueMessage = getMessageForExecution();
 			try {
 				TracingUtils.addNewMdcTraceContext(this.tracingProperties);
-				if (this.circuitBreaker.isCallPermitted()) {
+				if (this.circuitBreaker.tryAcquirePermission()) {
 					notifyEventListeners(l -> l.onMessageProcessingAttempt(this.internalQueueName));
 					this.circuitBreaker.executeRunnable(() -> executeMessage(queueMessage));
 					applyDeletionPolicyOnSuccess(receiptHandle);

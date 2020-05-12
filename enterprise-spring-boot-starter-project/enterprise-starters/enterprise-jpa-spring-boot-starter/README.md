@@ -3,25 +3,13 @@
 Starter für Projekte, die JPA nutzen wollen.
 - Spring Data JPA Integration
 - sinnvolle zusätzliche Hibernate Bibliotheken
-- Flyway
+- Flyway // MÖGLICHKEIT EINBAUEN MIT ÄLTEREN VERSIONEN ZU ARBEITE? HÄUFIG NOTWENDIG BEI ORACLE DBS.
 - H2?
 - Best Practices für verschiedene DB-Typen (z.B. Properties / Konfigurationen)
-- Auditing-Erweiterungen
+- Auditing-Erweiterungen // ERLEDIGT
 - ...
 
-# Snippets
-Properties für die Default-Properties:
-```
-# Database
-spring.datasource.hikari.minimum-idle=5
-spring.datasource.hikari.maximum-pool-size=10
-spring.jpa.properties.hibernate.generate_statistics=true
-spring.jpa.properties.hibernate.session.events.log=false
 
-spring.jpa.show-sql=false
-spring.jpa.hibernate.ddl-auto=none
-```
-Auditing: siehe Ordner Code-Snippets
 
 # Best Practices
 ## MySql
@@ -38,4 +26,22 @@ Auditing: siehe Ordner Code-Snippets
 ```
 spring.datasource.hikari.connection-test-query=SELECT 1
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect
+```
+
+## Oracle
+
+### Treiber
+```xml
+<dependency>
+	<groupId>xxx</groupId>
+	<artifactId>xxx</artifactId>
+</dependency>
+```
+
+### Properties
+
+```
+spring.datasource.driverClassName=oracle.jdbc.driver.OracleDriver
+spring.jpa.database-platform=org.hibernate.dialect.Oracle10gDialect
+spring.datasource.hikari.connection-test-query=select 1 from dual
 ```

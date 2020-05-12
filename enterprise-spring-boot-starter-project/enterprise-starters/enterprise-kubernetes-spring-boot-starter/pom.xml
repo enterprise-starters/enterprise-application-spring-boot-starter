@@ -7,7 +7,7 @@
 	<version>0.1.2-SNAPSHOT</version>
 
 	<parent>
-		<groupId>de.enterprise.spring-boot</groupId>
+		<groupId>de.enterprise-starters</groupId>
 		<artifactId>enterprise-starter-parent</artifactId>
 		<version>0.1.2-SNAPSHOT</version>
 		<relativePath>../../enterprise-starter-parent/pom.xml</relativePath>
@@ -15,15 +15,17 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.enterprise.spring-boot</groupId>
+			<groupId>de.enterprise-starters</groupId>
 			<artifactId>enterprise-application-spring-boot-starter</artifactId>
 			<version>0.1.2-SNAPSHOT</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast-kubernetes</artifactId>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 	

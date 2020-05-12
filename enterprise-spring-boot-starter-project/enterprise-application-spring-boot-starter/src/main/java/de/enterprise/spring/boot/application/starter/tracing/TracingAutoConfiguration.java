@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -23,9 +25,17 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @EnableConfigurationProperties(TracingProperties.class)
 @ConditionalOnProperty(prefix = "enterprise-application.tracing", name = "enabled", havingValue = "true", matchIfMissing = true)
-@Slf4j
 public class TracingAutoConfiguration {
 
+	@Bean
+	TracingRestTemplateCustomizer tracingRestTemplateCustomizer(TracingProperties tracingProperties) {
+		return new TracingRestTemplateCustomizer(tracingProperties);
+	}
+
+	@Configuration
+	@ConditionalOnWebApplication(type = Type.SERVLET)
+	@Slf4j
+	public static class ServletTracingConfiguration {
 	@Bean
 	public FilterRegistrationBean<TracingHeaderFilter> tracingHeaderFilter(TracingProperties tracingProperties) {
 		log.debug("tracing header filter enabled, using requestHeaderName:{}, mdcKey:{}", tracingProperties.getRequestHeaderName(),
@@ -38,13 +48,8 @@ public class TracingAutoConfiguration {
 		filterRegistrationBean.setOrder(tracingProperties.getFilterOrder());
 
 		return filterRegistrationBean;
-
-	}
-
-	@Bean
-	TracingRestTemplateCustomizer tracingRestTemplateCustomizer(TracingProperties tracingProperties) {
-		return new TracingRestTemplateCustomizer(tracingProperties);
-	}
+		}
+	} 
 
 	private static class TracingRestTemplateCustomizer implements RestTemplateCustomizer {
 

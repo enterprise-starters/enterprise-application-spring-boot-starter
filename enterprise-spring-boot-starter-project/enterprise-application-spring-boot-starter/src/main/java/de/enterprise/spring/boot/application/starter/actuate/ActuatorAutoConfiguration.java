@@ -7,9 +7,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCusto
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.info.InfoEndpoint;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -45,11 +46,11 @@ public class ActuatorAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	@ConditionalOnWebApplication(type = Type.SERVLET)
 	@ConditionalOnProperty(name = "enterprise-application.actuator.endpoint-security-enabled", havingValue = "true", matchIfMissing = true)
 	@Configuration
 	public class ActuatorSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -65,7 +66,7 @@ public class ActuatorAutoConfiguration {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().requestMatchers(EndpointRequest.to(HealthEndpoint.class, InfoEndpoint.class)).permitAll()
+			http.requestMatchers().requestMatchers(EndpointRequest.toAnyEndpoint()).and().authorizeRequests().requestMatchers(EndpointRequest.to(HealthEndpoint.class, InfoEndpoint.class)).permitAll()
 					.requestMatchers(EndpointRequest.toAnyEndpoint()).hasAuthority("MANAGE_ADMIN")
 					.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 					.and().csrf().disable().httpBasic();
@@ -77,8 +78,10 @@ public class ActuatorAutoConfiguration {
 	 *
 	 * @author Jonas Keßler
 	 */
+	@ConditionalOnWebApplication(type = Type.SERVLET)
 	@Order(99)
 	@Configuration
+	@ConditionalOnProperty(name = "spring.h2.console.enabled", havingValue = "true", matchIfMissing = false)
 	public class H2ConsoleSecurityConfig extends WebSecurityConfigurerAdapter {
 		/**
 		 * H2ConsoleProperties are empty if not explicitly configured and spring-boot-dev-tools activated.

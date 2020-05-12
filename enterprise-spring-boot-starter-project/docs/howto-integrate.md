@@ -33,7 +33,7 @@ Beispiel `pom.xml`:
 ```xml
 ... 
 <parent>
-    <groupId>de.enterprise.spring-boot</groupId>
+    <groupId>de.enterprise-starters</groupId>
     <artifactId>enterprise-application-parent</artifactId>
     <version>0.1.1</version>
     <relativePath/> <!-- lookup parent from repository -->
@@ -41,7 +41,7 @@ Beispiel `pom.xml`:
 
 <dependencies>
     <dependency>
-        <groupId>de.enterprise.spring-boot</groupId>
+        <groupId>de.enterprise-starters</groupId>
         <artifactId>enterprise-application-spring-boot-starter</artifactId>
         <version>0.1.1</version>
     </dependency>
@@ -59,7 +59,7 @@ In diesen Fällen empfiehlt es sich, das Artefakt `enterprise-dependencies` als 
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>de.enterprise.spring-boot</groupId>
+            <groupId>de.enterprise-starters</groupId>
             <artifactId>enterprise-dependencies</artifactId>
             <version>{AKTUELLE VERSION}</version>
             <type>pom</type>
@@ -70,7 +70,7 @@ In diesen Fällen empfiehlt es sich, das Artefakt `enterprise-dependencies` als 
 
 <dependencies>
     <dependency>
-        <groupId>de.enterprise.spring-boot</groupId>
+        <groupId>de.enterprise-starters</groupId>
         <artifactId>enterprise-application-spring-boot-starter</artifactId>
         <version>{AKTUELLE VERSION}</version>
     </dependency>

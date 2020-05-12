@@ -18,7 +18,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TracingProperties {
-
 	private boolean enabled = true;
 	private String requestHeaderName = "X-TraceId";
 	private String mdcKey = "traceId";

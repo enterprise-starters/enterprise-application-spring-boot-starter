@@ -11,9 +11,10 @@ import com.hazelcast.kubernetes.HazelcastKubernetesDiscoveryStrategyFactory;
 import com.hazelcast.kubernetes.KubernetesProperties;
 import com.hazelcast.spi.properties.GroupProperty;
 
-import de.enterprise.spring.boot.application.starter.clustering.HazelcastProperties;
 import de.enterprise.spring.boot.application.starter.clustering.discovery.HazelcastDiscoveryConfigurer;
 import de.enterprise.spring.boot.application.starter.clustering.discovery.HazelcastDiscoveryType;
+import de.enterprise.spring.boot.common.exception.TechnicalException;
+import de.enterprise.starters.kubernetes.clustering.hazelcast.HazelcastKubernetesProperties;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -24,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class KubernetesHazelcastDiscoveryConfigurer implements HazelcastDiscoveryConfigurer {
 
 	@Autowired
-	private HazelcastProperties hazelcastProperties;
+	private HazelcastKubernetesProperties hazelcastKubernetesProperties;
 
 	@Override
 	public HazelcastDiscoveryType supportedDiscoveryType() {
@@ -37,14 +38,20 @@ public class KubernetesHazelcastDiscoveryConfigurer implements HazelcastDiscover
 
 		@SuppressWarnings("rawtypes")
 		Map<String, Comparable> properties = new HashMap<>();
-		if (this.hazelcastProperties.getKubernetesDiscoveryConfig().isUseDns()) {
+		if (this.hazelcastKubernetesProperties.isUseDns()) {
 			properties.put(KubernetesProperties.SERVICE_DNS.key(),
-					this.hazelcastProperties.getKubernetesDiscoveryConfig().getServiceName());
+					this.hazelcastKubernetesProperties.getServiceName());
 			properties.put(KubernetesProperties.SERVICE_DNS_TIMEOUT.key(),
-					this.hazelcastProperties.getKubernetesDiscoveryConfig().getDnsTimeoutInSeconds());
-		} else {
+					this.hazelcastKubernetesProperties.getDnsTimeoutInSeconds());
+		} else if (this.hazelcastKubernetesProperties.isUseLabel()) {
+			properties.put(KubernetesProperties.SERVICE_LABEL_NAME.key(),
+					this.hazelcastKubernetesProperties.getLabelName());
+			properties.put(KubernetesProperties.SERVICE_LABEL_VALUE.key(), this.hazelcastKubernetesProperties.getLabelValue());
+		} else if (this.hazelcastKubernetesProperties.getServiceName() != null) {
 			properties.put(KubernetesProperties.SERVICE_NAME.key(),
-					this.hazelcastProperties.getKubernetesDiscoveryConfig().getServiceName());
+					this.hazelcastKubernetesProperties.getServiceName());
+		} else {
+			throw new TechnicalException("no cluster matcher (dns, serviceName or label) active");
 		}
 
 		DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(new HazelcastKubernetesDiscoveryStrategyFactory(),

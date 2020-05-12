@@ -19,13 +19,12 @@ import lombok.extern.slf4j.Slf4j;
  * @author Malte Geßner, Jonas Keßler
  */
 @Slf4j
-@Service
 public class TcpHazelcastDiscoveryConfigurer implements HazelcastDiscoveryConfigurer {
 
 	@Autowired
 	private HazelcastProperties hazelcastProperties;
 
-	@Override
+	@Override 
 	public HazelcastDiscoveryType supportedDiscoveryType() {
 		return HazelcastDiscoveryType.Tcp;
 	}

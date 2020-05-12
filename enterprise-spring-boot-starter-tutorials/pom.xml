@@ -7,7 +7,7 @@
 	<version>0.1.2-SNAPSHOT</version>
 	
 	<parent>
-		<groupId>de.enterprise.spring-boot</groupId>
+		<groupId>de.enterprise-starters</groupId>
 		<artifactId>enterprise-spring-boot-starter-build</artifactId>
 		<version>0.1.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>

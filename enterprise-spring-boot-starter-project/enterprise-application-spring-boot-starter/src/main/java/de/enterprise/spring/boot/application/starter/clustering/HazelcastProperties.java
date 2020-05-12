@@ -31,8 +31,6 @@ public class HazelcastProperties {
 	@NotNull
 	private String groupName;
 	@NotNull
-	private String groupPassword;
-	@NotNull
 	private HazelcastDiscoveryType discoveryType = HazelcastDiscoveryType.Tcp;
 	@Valid
 	private TcpDiscoveryConfig tcpDiscoveryConfig;
@@ -40,8 +38,6 @@ public class HazelcastProperties {
 	private ScheduledTaskLoggingProperties loggingProperties = new ScheduledTaskLoggingProperties();
 	@Valid
 	private List<MapConfig> caches;
-	@Valid
-	private KubernetesDiscoveryConfig kubernetesDiscoveryConfig;
 
 	/**
 	 * Hazelcast config values for tcp node discovery.
@@ -60,26 +56,5 @@ public class HazelcastProperties {
 		@Min(1)
 		private Integer portCount = 10;
 		private Integer joinPortTryCount;
-	}
-
-	/**
-	 * Hazelcast config values for kubernetes node discovery.
-	 *
-	 * @author Malte Geßner
-	 *
-	 */
-	@Getter
-	@Setter
-	@Validated
-	public static class KubernetesDiscoveryConfig {
-
-		private boolean useDns;
-
-		@NotNull
-		private String serviceName;
-
-		@NotNull
-		@Min(1)
-		private Integer dnsTimeoutInSeconds = 10;
 	}
 }

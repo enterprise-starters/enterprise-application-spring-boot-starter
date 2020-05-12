@@ -11,7 +11,7 @@
 	<description>Tutorial project to show the basics of using the enterprise starter projects.</description>
 
 	<parent>
-		<groupId>de.enterprise.spring-boot</groupId>
+		<groupId>de.enterprise-starters</groupId>
 		<artifactId>enterprise-application-parent</artifactId>
 		<version>0.1.2-SNAPSHOT</version>
 		<relativePath>../../enterprise-spring-boot-starter-project/enterprise-application-parent/pom.xml</relativePath>
@@ -23,7 +23,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.enterprise.spring-boot</groupId>
+			<groupId>de.enterprise-starters</groupId>
 			<artifactId>enterprise-application-spring-boot-starter</artifactId>
 			<version>0.1.2-SNAPSHOT</version>
 		</dependency>
