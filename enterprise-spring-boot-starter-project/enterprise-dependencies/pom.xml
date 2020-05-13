@@ -17,7 +17,34 @@
 
 	<packaging>pom</packaging>
 	<description>Enterprise Dependencies Definition</description>
+	
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
+	<distributionManagement>
+		<repository>
+			<id>maven-central</id>
+			<name>Maven Central repository</name>
+			<url>https://repo1.maven.org/maven2/</url>
+		</repository>
+		<snapshotRepository>
+			<id>github-snapshots</id>
+			<name>GitHub ENTERPRISE-STARTERS Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<developers>
+		<developer>
+			<name>Enterprise Starter Experts</name>
+			<organization>tbd</organization>
+		</developer>
+	</developers>
+	
 	<properties>
 		<enterprise-common.version>0.1.2-SNAPSHOT</enterprise-common.version>
 		<enterprise-build-tools.version>0.1.2-SNAPSHOT</enterprise-build-tools.version>
