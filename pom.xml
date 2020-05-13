@@ -31,16 +31,16 @@
 	</licenses>
 
 	<distributionManagement>
+<!-- 		<repository>
+			<id>ossrh</id>
+			<name>Central Repository OSSRH</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository> -->
 		<repository>
-			<id>maven-central</id>
-			<name>Maven Central repository</name>
-			<url>https://repo1.maven.org/maven2/</url>
-		</repository>
-		<snapshotRepository>
-			<id>github-snapshots</id>
-			<name>GitHub ENTERPRISE-STARTERS Apache Maven Packages</name>
+			<id>github</id>
+			<name>GitHub Maven Packages</name>
 			<url>https://maven.pkg.github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
-		</snapshotRepository>
+		</repository>
 	</distributionManagement>
 
 	<developers>
