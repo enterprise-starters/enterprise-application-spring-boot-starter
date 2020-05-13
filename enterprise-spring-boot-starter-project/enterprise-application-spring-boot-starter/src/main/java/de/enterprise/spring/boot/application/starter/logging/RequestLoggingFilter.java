@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedOperationParameter;
@@ -44,7 +43,7 @@ public class RequestLoggingFilter extends AbstractRequestLoggingFilter {
 	public boolean isRecordDuration() {
 		return this.recordDuration;
 	}
- 
+
 	@ManagedOperation
 	public void setRecordDuration(boolean recordDuration) {
 		this.recordDuration = recordDuration;
