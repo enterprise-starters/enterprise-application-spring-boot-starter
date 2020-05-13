@@ -30,19 +30,6 @@
 		</license>
 	</licenses>
 
-	<distributionManagement>
-<!-- 		<repository>
-			<id>ossrh</id>
-			<name>Central Repository OSSRH</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository> -->
-		<repository>
-			<id>github</id>
-			<name>GitHub Maven Packages</name>
-			<url>https://maven.pkg.github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
-		</repository>
-	</distributionManagement>
-
 	<developers>
 		<developer>
 			<name>Enterprise Starter Experts</name>
@@ -71,9 +58,48 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>bintray</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<distributionManagement>
+				<repository>
+					<id>bintray</id>
+					<name>magsnet-enterprise-starter-snapshots</name>
+					<url>https://api.bintray.com/maven/enterprise-starters/snapshots/enterprise-application-spring-boot-starter</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<id>github</id>
+			<distributionManagement>
+				<repository>
+					<id>github</id>
+					<name>GitHub Maven Packages</name>
+					<url>https://maven.pkg.github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
+				</repository>
+			</distributionManagement>
+		</profile>
 	</profiles>
 
 	<repositories>
+		<repository>
+			<id>github</id>
+			<name>GitHub Maven Packages</name>
+			<url>https://maven.pkg.github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>bintray</id>
+			<name>bintray</name>
+			<url>https://dl.bintray.com/enterprise-starters/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 		<repository>
 			<id>central</id>
 			<url>https://repo.maven.apache.org/maven2</url>
