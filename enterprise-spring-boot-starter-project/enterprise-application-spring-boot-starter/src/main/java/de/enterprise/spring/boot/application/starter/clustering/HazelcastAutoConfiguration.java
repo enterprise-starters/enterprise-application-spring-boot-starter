@@ -30,6 +30,7 @@ import com.hazelcast.config.GroupConfig;
 import com.hazelcast.config.NetworkConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.spi.properties.GroupProperty;
+import com.hazelcast.spring.context.SpringManagedContext;
 
 import de.enterprise.spring.boot.application.starter.clustering.actuate.HazelcastHealthIndicator;
 import de.enterprise.spring.boot.application.starter.clustering.actuate.HazelcastPublicMetrics;

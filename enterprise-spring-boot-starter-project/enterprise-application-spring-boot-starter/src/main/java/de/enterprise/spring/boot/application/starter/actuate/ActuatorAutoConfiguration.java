@@ -7,6 +7,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCusto
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.info.InfoEndpoint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -66,7 +67,8 @@ public class ActuatorAutoConfiguration {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.requestMatchers().requestMatchers(EndpointRequest.toAnyEndpoint()).and().authorizeRequests().requestMatchers(EndpointRequest.to(HealthEndpoint.class, InfoEndpoint.class)).permitAll()
+			http.requestMatchers().requestMatchers(EndpointRequest.toAnyEndpoint()).and().authorizeRequests()
+					.requestMatchers(EndpointRequest.to(HealthEndpoint.class, InfoEndpoint.class)).permitAll()
 					.requestMatchers(EndpointRequest.toAnyEndpoint()).hasAuthority("MANAGE_ADMIN")
 					.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 					.and().csrf().disable().httpBasic();

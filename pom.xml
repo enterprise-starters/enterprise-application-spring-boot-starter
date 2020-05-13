@@ -32,12 +32,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>enterprise-releases</id>
-			<url>https://nexus.k8s.enterprise-cloud.de/repository/maven-releases/</url>
+			<id>github-releases</id>
+			<name>GitHub ENTERPRISE-STARTERS Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/enterprise-starters/releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>enterprise-snapshots</id>
-			<url>https://nexus.k8s.enterprise-cloud.de/repository/maven-snapshots/</url>
+			<id>github-snapshots</id>
+			<name>GitHub ENTERPRISE-STARTERS Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/enterprise-starters/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 

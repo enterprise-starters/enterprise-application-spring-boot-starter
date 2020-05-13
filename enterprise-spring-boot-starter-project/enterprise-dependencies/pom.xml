@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.enterprise-starters</groupId>
@@ -39,7 +41,7 @@
 		<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
 		<maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
 		<maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
-		
+
 		<swagger.host>${project.artifactId}.enterprise-starters.de</swagger.host>
 		<swagger.basePath />
 		<swagger.info.title>${project.name} - API</swagger.info.title>
@@ -49,17 +51,6 @@
 		<swagger.info.contact.name>Enterprise Starters</swagger.info.contact.name>
 	</properties>
 
-	<distributionManagement>
-		<repository>
-			<id>enterprise-releases</id>
-			<url>https://nexus.k8s.enterprise-cloud.de/repository/maven-releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>enterprise-snapshots</id>
-			<url>https://nexus.k8s.enterprise-cloud.de/repository/maven-snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -247,10 +238,10 @@
 						</execution>
 					</executions>
 					<configuration>
-	                    <excludeRoots>
-	                        <excludeRoot>target/generated-sources/java</excludeRoot>
-	                    </excludeRoots>
-	                </configuration>
+						<excludeRoots>
+							<excludeRoot>target/generated-sources/java</excludeRoot>
+						</excludeRoots>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
