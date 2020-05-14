@@ -1,4 +1,4 @@
-name: Publish package to the Maven Central Repository and GitHub Packages
+name: Publish artifacts to the OSSRH Repository
 on:
   release:
     types: [created]
@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Java for publishing to Maven Central Repository
+      - name: Set up Java for publishing to OSSRH Repository
         uses: actions/setup-java@v1
         with:
           java-version: 11
