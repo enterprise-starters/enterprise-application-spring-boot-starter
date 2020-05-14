@@ -59,43 +59,30 @@
 			</build>
 		</profile>
 		<profile>
-			<id>bintray</id>
+			<id>ossrh</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<distributionManagement>
 				<repository>
-					<id>bintray</id>
-					<name>magsnet-enterprise-starter-snapshots</name>
-					<url>https://api.bintray.com/maven/enterprise-starters/snapshots/enterprise-application-spring-boot-starter</url>
+					<id>ossrh</id>
+					<name>Sonartype Maven Packages</name>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
 				</repository>
+				<snapshotRepository>
+					<id>ossrh</id>
+					<name>Sonartype Maven Packages</name>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
 			</distributionManagement>
-		</profile>
-		<profile>
-			<id>github</id>
-			<distributionManagement>
-				<repository>
-					<id>github</id>
-					<name>GitHub Maven Packages</name>
-					<url>https://maven.pkg.github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
-				</repository>
-			</distributionManagement>
-		</profile>
+		</profile>		
 	</profiles>
 
 	<repositories>
 		<repository>
-			<id>github</id>
-			<name>GitHub Maven Packages</name>
-			<url>https://maven.pkg.github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>bintray</id>
-			<name>bintray</name>
-			<url>https://dl.bintray.com/enterprise-starters/snapshots</url>
+			<id>ossrh</id>
+			<name>ossrh public</name>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>

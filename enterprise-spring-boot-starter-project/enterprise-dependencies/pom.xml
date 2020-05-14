@@ -25,18 +25,26 @@
 		</license>
 	</licenses>
 
-	<distributionManagement>
-<!-- 		<repository>
+	<profiles>
+		<profile>
 			<id>ossrh</id>
-			<name>Central Repository OSSRH</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository> -->
-		<repository>
-			<id>github</id>
-			<name>GitHub Maven Packages</name>
-			<url>https://maven.pkg.github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
-		</repository>
-	</distributionManagement>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<distributionManagement>
+				<repository>
+					<id>ossrh</id>
+					<name>Sonartype Maven Packages</name>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+				</repository>
+				<snapshotRepository>
+					<id>ossrh</id>
+					<name>Sonartype Maven Packages</name>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>		
+	</profiles>
 
 	<developers>
 		<developer>
