@@ -1,18 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-azure-spring-boot-starter</artifactId>
-	<version>0.1.2-SNAPSHOT</version>
-
+	<version>2.2.0-alpha</version>
+	<name>Enterprise Azure Spring Boot Starter</name>
 	<parent>
 		<groupId>de.enterprise-starters</groupId>
 		<artifactId>enterprise-starter-parent</artifactId>
-		<version>0.1.2-SNAPSHOT</version>
+		<version>2.2.0-alpha</version>
 		<relativePath>../../enterprise-starter-parent/pom.xml</relativePath>
 	</parent>
-	
+
 	<properties>
 		<azure.version>2.2.0</azure.version>
 		<azure.applicationinsights-spring-boot-starter.version>2.5.0</azure.applicationinsights-spring-boot-starter.version>
@@ -20,23 +21,23 @@
 	</properties>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-		
+
 		<!-- Azure Key Vault -->
 		<dependency>
 			<groupId>com.microsoft.azure</groupId>
 			<artifactId>azure-keyvault-secrets-spring-boot-starter</artifactId>
 		</dependency>
-	
+
 		<!-- Azure Application Insights -->
 		<dependency>
-		    <groupId>com.microsoft.azure</groupId>
-		    <artifactId>applicationinsights-spring-boot-starter</artifactId>
-		    <version>${azure.applicationinsights-spring-boot-starter.version}</version>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>applicationinsights-spring-boot-starter</artifactId>
+			<version>${azure.applicationinsights-spring-boot-starter.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.microsoft.azure</groupId>
@@ -47,16 +48,16 @@
 			<groupId>com.microsoft.azure</groupId>
 			<artifactId>azure-spring-boot-metrics-starter</artifactId>
 		</dependency>
-		
+
 		<!-- TODO move to enterprise-parent or enterprise-dependencies? -->
 		<!-- For using if / then / else in logback.xml -->
 		<dependency>
-		   <groupId>org.codehaus.janino</groupId>
-		   <artifactId>janino</artifactId>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
 		</dependency>
-		
+
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -68,5 +69,5 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 </project>

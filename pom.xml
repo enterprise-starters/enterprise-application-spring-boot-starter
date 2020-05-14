@@ -6,10 +6,10 @@
 
 	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-spring-boot-starter-build</artifactId>
-	<version>0.1.2-SNAPSHOT</version>
+	<version>2.2.0-alpha</version>
 	<packaging>pom</packaging>
-
-	<description>Enterprise Spring Boot Starter Build</description>
+	<name>Enterprise Spring Boot Starter Build</name>
+	<description>Enterprise Starter for Spring Boot</description>
 	<url>https://github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
 
 	<modules>
@@ -187,7 +187,7 @@
 						<artifactId>nexus-staging-maven-plugin</artifactId>
 						<extensions>true</extensions>
 						<configuration>
-							<serverId>ossrh</serverId>
+							<serverId>sonatype-nexus-staging</serverId>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 							<autoReleaseAfterClose>false</autoReleaseAfterClose>
 						</configuration>

@@ -5,12 +5,12 @@
 
 	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-mongodb-spring-boot-starter</artifactId>
-	<version>0.1.2-SNAPSHOT</version>
-
+	<version>2.2.0-alpha</version>
+	<name>Enterprise MongoDB Spring Boot Starter</name>
 	<parent>
 		<groupId>de.enterprise-starters</groupId>
 		<artifactId>enterprise-starter-parent</artifactId>
-		<version>0.1.2-SNAPSHOT</version>
+		<version>2.2.0-alpha</version>
 		<relativePath>../../enterprise-starter-parent/pom.xml</relativePath>
 	</parent>
 
