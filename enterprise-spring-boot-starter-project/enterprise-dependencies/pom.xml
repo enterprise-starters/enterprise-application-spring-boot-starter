@@ -18,6 +18,19 @@
 	<packaging>pom</packaging>
 	<description>Enterprise Dependencies Definition</description>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
 	<licenses>
 		<license>
 			<name>The Apache License, Version 2.0</name>
@@ -25,31 +38,16 @@
 		</license>
 	</licenses>
 
-	<profiles>
-		<profile>
-			<id>ossrh</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<distributionManagement>
-				<repository>
-					<id>ossrh</id>
-					<name>Sonartype Maven Packages</name>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-				</repository>
-				<snapshotRepository>
-					<id>ossrh</id>
-					<name>Sonartype Maven Packages</name>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-				</snapshotRepository>
-			</distributionManagement>
-		</profile>		
-	</profiles>
-
 	<developers>
 		<developer>
-			<name>Enterprise Starter Experts</name>
-			<organization>tbd</organization>
+			<name>Malte Geßner</name>
+			<email>malte@enterprise-starters.de</email>
+			<organization>aclue GmbH</organization>
+		</developer>
+		<developer>
+			<name>Jonas Keßler</name>
+			<email>jonas@enterprise-starters.de</email>
+			<organization>aclue GmbH</organization>
 		</developer>
 	</developers>
 

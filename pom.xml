@@ -14,7 +14,6 @@
 
 	<modules>
 		<module>enterprise-spring-boot-starter-project</module>
-		<module>enterprise-spring-boot-starter-tutorials</module>
 	</modules>
 
 	<scm>
@@ -22,6 +21,19 @@
 		<developerConnection>scm:git:ssh://github.com:enterprise-starters/enterprise-application-spring-boot-starter.git</developerConnection>
 		<url>https://github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
 	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
 	<licenses>
 		<license>
@@ -32,92 +44,225 @@
 
 	<developers>
 		<developer>
-			<name>Enterprise Starter Experts</name>
-			<organization>tbd</organization>
+			<name>Malte Geßner</name>
+			<email>malte@enterprise-starters.de</email>
+			<organization>aclue GmbH</organization>
+		</developer>
+		<developer>
+			<name>Jonas Keßler</name>
+			<email>jonas@enterprise-starters.de</email>
+			<organization>aclue GmbH</organization>
 		</developer>
 	</developers>
 
 	<properties>
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+		<maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<flatten-maven-plugin.version>1.2.1</flatten-maven-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+		<java.version>11</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<configuration>
+					<updatePomFile>true</updatePomFile>
+					<flattenMode>oss</flattenMode>
+					<embedBuildProfileDependencies>true</embedBuildProfileDependencies>
+					<pomElements>
+						<distributionManagement>remove</distributionManagement>
+						<repositories>remove</repositories>
+					</pomElements>
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten-clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>3.6</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven-release-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>${nexus-staging-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>${maven-enforcer-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>flatten-maven-plugin</artifactId>
+					<version>${flatten-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
 	<profiles>
 		<profile>
-			<id>build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+			<id>tutorials</id>
+			<modules>
+				<module>enterprise-spring-boot-starter-tutorials</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>release</id>
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-release-plugin</artifactId>
-						<version>${maven-release-plugin.version}</version>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<source>${java.version}</source>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<inherited>true</inherited>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
 		<profile>
-			<id>ossrh</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<distributionManagement>
+			<id>spring-repo</id>
+			<repositories>
 				<repository>
-					<id>ossrh</id>
-					<name>Sonartype Maven Packages</name>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+					<id>spring-release</id>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/release</url>
 				</repository>
-				<snapshotRepository>
-					<id>ossrh</id>
-					<name>Sonartype Maven Packages</name>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-				</snapshotRepository>
-			</distributionManagement>
-		</profile>		
+				<repository>
+					<id>spring-milestone</id>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/milestone</url>
+				</repository>
+				<repository>
+					<id>spring-snapshot</id>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/snapshot</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>spring-release</id>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/release</url>
+				</pluginRepository>
+				<pluginRepository>
+					<id>spring-milestone</id>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/milestone</url>
+				</pluginRepository>
+				<pluginRepository>
+					<id>spring-snapshot</id>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/snapshot</url>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
 	</profiles>
-
-	<repositories>
-		<repository>
-			<id>ossrh</id>
-			<name>ossrh public</name>
-			<url>https://oss.sonatype.org/content/groups/public/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>central</id>
-			<url>https://repo.maven.apache.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-release</id>
-			<name>Spring release</name>
-			<url>https://repo.spring.io/release</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-snapshot</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestone</id>
-			<name>Spring Milestone</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 </project>
