@@ -71,35 +71,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>flatten-maven-plugin</artifactId>
-				<configuration>
-					<updatePomFile>true</updatePomFile>
-					<flattenMode>oss</flattenMode>
-					<embedBuildProfileDependencies>true</embedBuildProfileDependencies>
-					<pomElements>
-						<distributionManagement>remove</distributionManagement>
-						<repositories>remove</repositories>
-					</pomElements>
-				</configuration>
-				<executions>
-					<execution>
-						<id>flatten</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>flatten</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>flatten-clean</id>
-						<phase>clean</phase>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<executions>
@@ -122,38 +93,9 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>${maven-release-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>${maven-gpg-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.sonatype.plugins</groupId>
-					<artifactId>nexus-staging-maven-plugin</artifactId>
-					<version>${nexus-staging-maven-plugin.version}</version>
-				</plugin>
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
 					<version>${maven-enforcer-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>flatten-maven-plugin</artifactId>
-					<version>${flatten-maven-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${maven-javadoc-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>${maven-source-plugin.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -167,9 +109,38 @@
 			</modules>
 		</profile>
 		<profile>
-			<id>release</id>
+			<id>artifact-deploy</id>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>flatten-maven-plugin</artifactId>
+						<configuration>
+							<updatePomFile>true</updatePomFile>
+							<flattenMode>oss</flattenMode>
+							<embedBuildProfileDependencies>true</embedBuildProfileDependencies>
+							<pomElements>
+								<distributionManagement>remove</distributionManagement>
+								<repositories>remove</repositories>
+							</pomElements>
+						</configuration>
+						<executions>
+							<execution>
+								<id>flatten</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>flatten</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>flatten-clean</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>clean</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
@@ -211,7 +182,50 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>false</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
 				</plugins>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>maven-release-plugin</artifactId>
+							<version>${maven-release-plugin.version}</version>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-gpg-plugin</artifactId>
+							<version>${maven-gpg-plugin.version}</version>
+						</plugin>
+						<plugin>
+							<groupId>org.sonatype.plugins</groupId>
+							<artifactId>nexus-staging-maven-plugin</artifactId>
+							<version>${nexus-staging-maven-plugin.version}</version>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>flatten-maven-plugin</artifactId>
+							<version>${flatten-maven-plugin.version}</version>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-javadoc-plugin</artifactId>
+							<version>${maven-javadoc-plugin.version}</version>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-source-plugin</artifactId>
+							<version>${maven-source-plugin.version}</version>
+						</plugin>
+					</plugins>
+				</pluginManagement>
 			</build>
 		</profile>
 		<profile>

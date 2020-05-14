@@ -139,7 +139,7 @@ public class ResilientMessageListenerContainerFactory extends SimpleMessageListe
 	}
 
 	/**
-	 * Configures the destination resolver used to retrieve the queue url based on the destination name configured for this instance. <br/>
+	 * Configures the destination resolver used to retrieve the queue url based on the destination name configured for this instance. <br>
 	 * This setter can be used when a custom configured {@link DestinationResolver} must be provided. (For example if one want to have the
 	 * {@link org.springframework.cloud.aws.messaging.support.destination.DynamicQueueUrlDestinationResolver} with the auto creation of
 	 * queues set to {@code true}.
