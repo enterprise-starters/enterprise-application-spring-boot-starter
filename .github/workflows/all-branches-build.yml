@@ -2,8 +2,7 @@ name: Java CI - JDK 11
 
 on:
   push:
-    branches:
-    - 'master'
+  pull_request:
 
 jobs:
   build:
@@ -21,4 +20,4 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
-      run: mvn -P build -B deploy --file pom.xml
+      run: mvn install --file pom.xml
