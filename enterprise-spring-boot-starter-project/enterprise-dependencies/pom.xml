@@ -58,8 +58,8 @@
 	</developers>
 
 	<properties>
-		<enterprise-common.version>0.1.2-SNAPSHOT</enterprise-common.version>
-		<enterprise-build-tools.version>0.1.2-SNAPSHOT</enterprise-build-tools.version>
+		<enterprise-common.version>2.2.0-alpha</enterprise-common.version>
+		<enterprise-build-tools.version>2.2.0-alpha</enterprise-build-tools.version>
 
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<hazelcast-aws.version>2.1.0</hazelcast-aws.version>
@@ -67,8 +67,8 @@
 		<hazelcast.version>3.11.5</hazelcast.version>
 		<hazelcast-kubernetes.version>1.5.2</hazelcast-kubernetes.version>
 		<hazelcast-hibernate.version>1.3.2</hazelcast-hibernate.version>
-		<spring-security-rsa.version>1.0.8.RELEASE</spring-security-rsa.version>
-		<checkstyle.version>8.29</checkstyle.version>
+		<spring-security-rsa.version>1.0.9.RELEASE</spring-security-rsa.version>
+		<checkstyle.version>8.32</checkstyle.version>
 		<wiremock.version>2.26.0</wiremock.version>
 		<resilience4j-spring-boot2.version>1.1.0</resilience4j-spring-boot2.version>
 
@@ -77,7 +77,7 @@
 		<swagger-maven-plugin.version>3.1.8</swagger-maven-plugin.version>
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 		<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
-		<maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
+		<maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
 		<maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
 
 		<swagger.host>${project.artifactId}.enterprise-starters.de</swagger.host>
