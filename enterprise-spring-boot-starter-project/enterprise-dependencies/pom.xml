@@ -6,7 +6,7 @@
 
 	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-dependencies</artifactId>
-	<version>2.2.0-alpha</version>
+	<version>2.2.0-SNAPSHOT</version>
 	<name>Enterprise Spring Boot Starter/Application Dependencies</name>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -18,48 +18,24 @@
 	<packaging>pom</packaging>
 	<description>Enterprise Dependencies Definition</description>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>sonatype-nexus-snapshots</id>
-			<name>Sonatype Nexus Snapshots</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</snapshotRepository>
-		<repository>
-			<id>sonatype-nexus-staging</id>
-			<name>Nexus Release Repository</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
-	
-	<scm>
-		<connection>scm:git:git://github.com/enterprise-starters/enterprise-application-spring-boot-starter.git</connection>
-		<developerConnection>scm:git:ssh://github.com:enterprise-starters/enterprise-application-spring-boot-starter.git</developerConnection>
-		<url>https://github.com/enterprise-starters/enterprise-application-spring-boot-starter</url>
-	</scm>	
-
 	<licenses>
 		<license>
 			<name>The Apache License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-
 	<developers>
 		<developer>
-			<name>Malte Geßner</name>
-			<email>malte@enterprise-starters.de</email>
-			<organization>aclue GmbH</organization>
-		</developer>
-		<developer>
-			<name>Jonas Keßler</name>
-			<email>jonas@enterprise-starters.de</email>
-			<organization>aclue GmbH</organization>
+			<name>Enterprise Starters</name>
+			<email>info@enterprise-starters.de</email>
+			<organization>Enterprise Starters</organization>
+			<organizationUrl>https://github.com/enterprise-starters</organizationUrl>
 		</developer>
 	</developers>
 
 	<properties>
-		<enterprise-common.version>2.2.0-alpha</enterprise-common.version>
-		<enterprise-build-tools.version>2.2.0-alpha</enterprise-build-tools.version>
+		<enterprise-common.version>2.2.0-SNAPSHOT</enterprise-common.version>
+		<enterprise-build-tools.version>2.2.0-SNAPSHOT</enterprise-build-tools.version>
 
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<hazelcast-aws.version>2.1.0</hazelcast-aws.version>
@@ -79,6 +55,9 @@
 		<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
 		<maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
 		<maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
+
+		<apt-maven-plugin.version>1.1.3</apt-maven-plugin.version>
+		<nosqlunit-mongodb.version>1.0.0</nosqlunit-mongodb.version>
 
 		<swagger.host>${project.artifactId}.enterprise-starters.de</swagger.host>
 		<swagger.basePath />
@@ -152,6 +131,11 @@
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-junit-jupiter</artifactId>
 				<version>${mockito.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.lordofthejars</groupId>
+				<artifactId>nosqlunit-mongodb</artifactId>
+				<version>${nosqlunit-mongodb.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -281,142 +265,30 @@
 						</excludeRoots>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>com.mysema.maven</groupId>
+					<artifactId>apt-maven-plugin</artifactId>
+					<version>${apt-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>process</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>target/generated-sources/java</outputDirectory>
+								<processor>${apt-maven-plugin-processor-class}</processor>
+							</configuration>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>com.querydsl</groupId>
+							<artifactId>querydsl-apt</artifactId>
+							<version>${querydsl.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-	<profiles>
-		<profile>
-			<id>artifact-deploy</id>
-			<properties>
-				<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-				<maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-				<maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-				<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-				<flatten-maven-plugin.version>1.2.1</flatten-maven-plugin.version>
-				<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>flatten-maven-plugin</artifactId>
-						<configuration>
-							<updatePomFile>true</updatePomFile>
-							<flattenMode>minimum</flattenMode>
-							<embedBuildProfileDependencies>true</embedBuildProfileDependencies>
-							<pomElements>
-								<distributionManagement>remove</distributionManagement>
-								<repositories>remove</repositories>
-							</pomElements>
-						</configuration>
-						<executions>
-							<execution>
-								<id>flatten</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>flatten</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>flatten-clean</id>
-								<phase>clean</phase>
-								<goals>
-									<goal>clean</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<configuration>
-							<source>${java.version}</source>
-						</configuration>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-								<inherited>true</inherited>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>sonatype-nexus-staging</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>false</autoReleaseAfterClose>
-						</configuration>
-					</plugin>
-				</plugins>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<artifactId>maven-release-plugin</artifactId>
-							<version>${maven-release-plugin.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-gpg-plugin</artifactId>
-							<version>${maven-gpg-plugin.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.sonatype.plugins</groupId>
-							<artifactId>nexus-staging-maven-plugin</artifactId>
-							<version>${nexus-staging-maven-plugin.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-enforcer-plugin</artifactId>
-							<version>${maven-enforcer-plugin.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>flatten-maven-plugin</artifactId>
-							<version>${flatten-maven-plugin.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-javadoc-plugin</artifactId>
-							<version>${maven-javadoc-plugin.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-source-plugin</artifactId>
-							<version>${maven-source-plugin.version}</version>
-						</plugin>
-					</plugins>
-				</pluginManagement>
-			</build>
-		</profile>
-	</profiles>
 </project>

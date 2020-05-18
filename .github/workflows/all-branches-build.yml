@@ -1,4 +1,4 @@
-name: Java CI - JDK 11
+name: build
 
 on:
   push:

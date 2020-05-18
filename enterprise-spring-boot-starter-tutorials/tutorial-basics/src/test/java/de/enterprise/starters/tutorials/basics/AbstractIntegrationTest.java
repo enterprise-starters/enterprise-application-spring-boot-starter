@@ -6,13 +6,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import de.enterprise.spring.boot.application.starter.application.AbstractApplication;
+import de.enterprise.spring.boot.application.starter.application.AbstractEnterpriseApplication;
 
 /**
  *
  * @author Jonas Keßler
  */
-@ActiveProfiles(AbstractApplication.INTEGRATION_TEST_PROFILE)
+@ActiveProfiles(AbstractEnterpriseApplication.INTEGRATION_TEST_PROFILE)
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = TutorialBasicsApplication.class)
