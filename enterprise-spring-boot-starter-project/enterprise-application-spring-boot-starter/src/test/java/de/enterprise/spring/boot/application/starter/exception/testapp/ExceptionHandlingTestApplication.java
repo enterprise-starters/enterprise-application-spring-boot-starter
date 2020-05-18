@@ -1,6 +1,5 @@
 package de.enterprise.spring.boot.application.starter.exception.testapp;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -9,9 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @SpringBootApplication(scanBasePackages = "de.enterprise.spring.boot.application.starter.exception")
 public class ExceptionHandlingTestApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(ExceptionHandlingTestApplication.class, args);
-	}
 
 	@Order(98)
 	@Configuration
