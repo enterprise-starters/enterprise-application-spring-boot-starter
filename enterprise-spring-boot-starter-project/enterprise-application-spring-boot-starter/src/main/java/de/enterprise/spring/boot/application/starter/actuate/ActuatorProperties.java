@@ -23,8 +23,6 @@ public class ActuatorProperties {
 	 * {@link ActuatorSecurityConfiguration}.
 	 */
 	private Boolean endpointSecurityEnabled;
-
 	private String instanceCommonTagValue;
-
 	private String versionCommonTagValue;
 }

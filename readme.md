@@ -1,3 +1,8 @@
+[![Apache License 2](https://img.shields.io/badge/license-ASF2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
+[![Build Status](https://github.com/enterprise-starters/enterprise-application-spring-boot-starter/workflows/build/badge.svg?branch=master)](https://github.com/enterprise-starters/enterprise-application-spring-boot-starter/actions?query=workflow%3A%22build%22)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=enterprise-starters_enterprise-application-spring-boot-starter&metric=alert_status)](https://sonarcloud.io/dashboard?id=enterprise-starters_enterprise-application-spring-boot-starter)
+[![Maven Central](https://img.shields.io/maven-central/v/de.enterprise-starters/enterprise-spring-boot-starter-build.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22de.enterprise-starters%22%20AND%20a:%22enterprise-spring-boot-starter-build%22)
+
 # Enterprise-Spring-Boot-Starter
 
 ## Was ist der Enterprise-Starter?

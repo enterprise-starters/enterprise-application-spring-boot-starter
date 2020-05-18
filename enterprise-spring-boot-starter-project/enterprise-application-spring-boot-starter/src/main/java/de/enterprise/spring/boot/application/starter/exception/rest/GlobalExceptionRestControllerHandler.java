@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Malte Geßner
  *
  */
-@ControllerAdvice(annotations = RestController.class)
+@ControllerAdvice(annotations = RestController.class) 
 @Slf4j
 public class GlobalExceptionRestControllerHandler {
 
@@ -96,7 +96,7 @@ public class GlobalExceptionRestControllerHandler {
 		if (ex instanceof DataBindingValidationException) {
 			Errors errors = ((DataBindingValidationException) ex).getErrors();
 			if (errors != null) {
-				Map<String, String> validationFieldErrors = new HashMap<>();
+				Map<String, Object> validationFieldErrors = new HashMap<>();
 				errors.getFieldErrors().forEach(fieldError -> {
 					validationFieldErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
 				});
@@ -106,7 +106,7 @@ public class GlobalExceptionRestControllerHandler {
 			Set<? extends ConstraintViolation<?>> constraintViolations = ((ConstraintViolationValidationException) ex)
 					.getConstraintViolations();
 			if (constraintViolations != null) {
-				Map<String, String> validationFieldErrors = new HashMap<>();
+				Map<String, Object> validationFieldErrors = new HashMap<>();
 				constraintViolations.forEach(fieldError -> {
 					validationFieldErrors.put(fieldError.getPropertyPath().toString(), fieldError.getMessage());
 				});

@@ -42,8 +42,7 @@ import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
  * "robustness".
  *
  * Robust means that the container slows down the polling mechanism in case of errors. Logic how to act in case of errors is managed by
- * {@link FailsafeCircuitBreaker}. Each sqs queue used in here has its own idependent circuitbreaker, but for now they all share the same
- * settings.
+ * {@link CircuitBreaker}. Each sqs queue used in here has its own idependent circuitbreaker, but for now they all share the same settings.
  *
  * TODO: use logger from @Slf4j ?
  *
@@ -248,7 +247,7 @@ public class ResilientMessageListenerContainer extends SimpleMessageListenerCont
 					ReceiveMessageRequest request = this.queueAttributes.getReceiveMessageRequest();
 
 					// sleep a while if circuit is opened
-					if (!this.circuitBreaker.isCallPermitted()) {
+					if (!this.circuitBreaker.tryAcquirePermission()) {
 
 						try {
 							int sleep = 1000;
@@ -355,7 +354,7 @@ public class ResilientMessageListenerContainer extends SimpleMessageListenerCont
 			org.springframework.messaging.Message<String> queueMessage = getMessageForExecution();
 			try {
 				TracingUtils.addNewMdcTraceContext(this.tracingProperties);
-				if (this.circuitBreaker.isCallPermitted()) {
+				if (this.circuitBreaker.tryAcquirePermission()) {
 					notifyEventListeners(l -> l.onMessageProcessingAttempt(this.internalQueueName));
 					this.circuitBreaker.executeRunnable(() -> executeMessage(queueMessage));
 					applyDeletionPolicyOnSuccess(receiptHandle);

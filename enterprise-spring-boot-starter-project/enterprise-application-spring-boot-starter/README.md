@@ -4,7 +4,7 @@ Um die Features des Enterprise-Spring-Boot-Application-Starters zu nutzen, muss 
 
 ```xml
 <dependency>
-	<groupId>de.enterprise.spring-boot</groupId>
+	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-application-spring-boot-starter</artifactId>
 	<version>{AKTUELLE VERSION}</version>
 </dependency>

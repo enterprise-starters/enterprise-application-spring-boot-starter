@@ -79,7 +79,7 @@ public interface MessageListenerContainerEventListener {
 	void onMessageProcessingFailure(String internalQueueName);
 
 	/**
-	 * Called if a message was deleted, because it's {@link QueueProperties#getMaxAge()} was reached.
+	 * Called if a message was deleted, because it's {@link QueueProperties#maxAge} was reached.
 	 * 
 	 * @param internalQueueName
 	 *            the internal queue representation

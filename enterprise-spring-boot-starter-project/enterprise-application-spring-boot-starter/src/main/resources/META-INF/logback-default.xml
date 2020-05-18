@@ -2,13 +2,14 @@
 <included>
 	<jmxConfigurator />
 	<springProperty name="enterprise-application.project.artifactId" source="enterprise-application.project.artifact-id" />
+	<springProperty name="enterprise-application.project.groupId" source="enterprise-application.project.group-id" />
 	<springProperty name="enterprise-application.project.version" source="enterprise-application.project.version" />
 	<springProperty name="enterprise-application.logging.file.prefix" source="enterprise-application.logging.file-prefix" />
 	<springProperty name="enterprise-application.logging.appName" source="enterprise-application.logging.app-name" />
 	<springProperty name="enterprise-application.logging.appender.containerConsole.pattern" source="enterprise-application.logging.appender-container-console-pattern" />
 	<springProperty name="enterprise-application.logging.appender.logfile.pattern" source="enterprise-application.logging.appender-logfile-pattern" />
 	<springProperty name="enterprise-application.logging.appender.console.pattern" source="enterprise-application.logging.appender-console-pattern" />
-	<contextName>de.enterprise.${enterprise-application.project.artifactId}</contextName>
+	<contextName>${enterprise-application.project.groupId}.${enterprise-application.project.artifactId}</contextName>
 
 	<springProfile name="dev-local">
 		<springProperty name="activeProfile" source="dev-local" defaultValue="dev-local" />

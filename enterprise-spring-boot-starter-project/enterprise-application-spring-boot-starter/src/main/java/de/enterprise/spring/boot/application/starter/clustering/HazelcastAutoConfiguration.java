@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -28,12 +30,15 @@ import com.hazelcast.config.GroupConfig;
 import com.hazelcast.config.NetworkConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.spi.properties.GroupProperty;
+import com.hazelcast.spring.context.SpringManagedContext;
 
 import de.enterprise.spring.boot.application.starter.clustering.actuate.HazelcastHealthIndicator;
 import de.enterprise.spring.boot.application.starter.clustering.actuate.HazelcastPublicMetrics;
 import de.enterprise.spring.boot.application.starter.clustering.discovery.HazelcastDiscoveryConfigurer;
+import de.enterprise.spring.boot.application.starter.clustering.discovery.TcpHazelcastDiscoveryConfigurer;
 import de.enterprise.spring.boot.application.starter.clustering.scheduling.HazelcastTaskScheduler;
 import de.enterprise.spring.boot.application.starter.clustering.scheduling.ScheduledTaskExecutionProtocol;
+import de.enterprise.spring.boot.application.starter.logging.MdcTaskDecorator;
 import de.enterprise.spring.boot.application.starter.tracing.TracingProperties;
 import io.micrometer.core.instrument.MeterRegistry;
 
@@ -46,20 +51,25 @@ import io.micrometer.core.instrument.MeterRegistry;
 @ConditionalOnClass(HazelcastInstance.class)
 @EnableConfigurationProperties({ HazelcastProperties.class })
 @ComponentScan("de.enterprise.spring.boot.application.starter.clustering.discovery")
+@AutoConfigureBefore(TaskExecutionAutoConfiguration.class)
 public class HazelcastAutoConfiguration {
+
+	@ConditionalOnProperty(name = "enterprise-application.hazelcast.discovery-type", havingValue = "Tcp")
+	@Bean
+	TcpHazelcastDiscoveryConfigurer tcpHazelcastDiscoveryConfigurer() {
+		return new TcpHazelcastDiscoveryConfigurer();
+	}
 
 	@ConditionalOnMissingBean(Config.class)
 	@Bean
-	Config hazelcastConfig(HazelcastProperties hazelcastProperties,
-			// TODO: sinnvolle Lösung über Beans??
-			@Autowired(required = false) List<HazelcastDiscoveryConfigurer> discoveryConfigurers) {
+	Config hazelcastConfig(HazelcastProperties hazelcastProperties, @Autowired List<HazelcastDiscoveryConfigurer> discoveryConfigurers) {
 		Config config = new Config();
 
 		// set instance name to group name
 		config.setInstanceName(hazelcastProperties.getGroupName());
 
 		// set instance group
-		GroupConfig groupConfig = new GroupConfig(hazelcastProperties.getGroupName(), hazelcastProperties.getGroupPassword());
+		GroupConfig groupConfig = new GroupConfig(hazelcastProperties.getGroupName());
 		config.setGroupConfig(groupConfig);
 
 		NetworkConfig networkConfig = config.getNetworkConfig();
@@ -95,9 +105,19 @@ public class HazelcastAutoConfiguration {
 		return new HazelcastPublicMetrics(hazelcastInstance);
 	}
 
+	@ConditionalOnClass(SpringManagedContext.class)
+	protected static class SpringManagedContextConfiguration {
+		@Bean
+		SpringManagedContext springManagedContext(Config hazelcastConfig) {
+			SpringManagedContext managedContext = new SpringManagedContext();
+			hazelcastConfig.setManagedContext(managedContext);
+
+			return managedContext;
+		}
+	}
+
 	@Configuration
 	@ComponentScan("de.enterprise.spring.boot.application.starter.clustering.scheduling")
-	@ConditionalOnClass(HazelcastInstance.class)
 	@ConditionalOnBean(ScheduledAnnotationBeanPostProcessor.class)
 	protected static class HazelcastSchedulingAutoConfiguration {
 
@@ -127,6 +147,7 @@ public class HazelcastAutoConfiguration {
 			taskExecutor.setAwaitTerminationSeconds(60);
 			taskExecutor.setCorePoolSize(10);
 			taskExecutor.setMaxPoolSize(20);
+			taskExecutor.setTaskDecorator(new MdcTaskDecorator());
 			return taskExecutor;
 		}
 	}

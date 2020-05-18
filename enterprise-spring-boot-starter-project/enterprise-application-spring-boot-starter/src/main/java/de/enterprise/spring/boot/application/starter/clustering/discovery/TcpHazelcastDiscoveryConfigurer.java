@@ -3,7 +3,6 @@ package de.enterprise.spring.boot.application.starter.clustering.discovery;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.NetworkConfig;
@@ -19,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author Malte Geßner, Jonas Keßler
  */
 @Slf4j
-@Service
 public class TcpHazelcastDiscoveryConfigurer implements HazelcastDiscoveryConfigurer {
 
 	@Autowired

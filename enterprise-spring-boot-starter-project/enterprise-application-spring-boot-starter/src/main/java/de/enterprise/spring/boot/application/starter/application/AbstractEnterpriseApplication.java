@@ -25,7 +25,7 @@ import de.enterprise.spring.boot.common.exception.TechnicalException;
  */
 @SpringBootApplication
 @EnableConfigurationProperties(EnterpriseApplicationProperties.class)
-public abstract class AbstractApplication extends SpringBootServletInitializer {
+public abstract class AbstractEnterpriseApplication extends SpringBootServletInitializer {
 
 	/**
 	 * Profile for tests.

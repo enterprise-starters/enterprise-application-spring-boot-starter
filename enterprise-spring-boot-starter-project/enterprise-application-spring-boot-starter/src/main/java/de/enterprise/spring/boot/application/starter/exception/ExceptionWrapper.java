@@ -20,7 +20,7 @@ public class ExceptionWrapper {
 
 	private String code;
 	private String message;
-	private Map<String, String> values;
+	private Map<String, Object> values;
 
 	public ExceptionWrapper(Exception ex) {
 		this.message = ex.getMessage();

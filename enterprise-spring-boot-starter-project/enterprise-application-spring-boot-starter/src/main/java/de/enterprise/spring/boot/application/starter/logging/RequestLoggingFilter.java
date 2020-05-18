@@ -16,6 +16,7 @@ import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 import org.springframework.jmx.export.annotation.ManagedResource;
+import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.AbstractRequestLoggingFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -36,6 +37,18 @@ public class RequestLoggingFilter extends AbstractRequestLoggingFilter {
 	private String afterMessagePrefix = DEFAULT_AFTER_MESSAGE_PREFIX;
 	private String afterMessageSuffix = DEFAULT_AFTER_MESSAGE_SUFFIX;
 
+	private boolean recordDuration;
+
+	@ManagedOperation
+	public boolean isRecordDuration() {
+		return this.recordDuration;
+	}
+
+	@ManagedOperation
+	public void setRecordDuration(boolean recordDuration) {
+		this.recordDuration = recordDuration;
+	}
+
 	/**
 	 * Forwards the request to the next filter in the chain and delegates down to the subclasses to perform the actual request logging both
 	 * before and after the request is processed.
@@ -54,16 +67,32 @@ public class RequestLoggingFilter extends AbstractRequestLoggingFilter {
 			requestToUse = new ContentCachingRequestWrapper(request, this.getMaxPayloadLength());
 		}
 
+		String requestMessage = "";
+
 		boolean shouldLog = this.shouldLog(requestToUse);
 		if (shouldLog && isFirstRequest) {
-			this.beforeRequest(requestToUse, this.getBeforeMessage(requestToUse));
+			requestMessage = this.getBeforeMessage(requestToUse);
+		}
+
+		StopWatch requestResponseTime = null;
+		if (this.recordDuration) {
+			requestResponseTime = new StopWatch();
 		}
 
 		try {
+			if (this.recordDuration && requestResponseTime != null) {
+				requestResponseTime.start();
+			}
 			filterChain.doFilter(requestToUse, response);
 		} finally {
+			String requestResponseDuration = "";
+			if (this.recordDuration && requestResponseTime != null) {
+				requestResponseTime.stop();
+				requestResponseDuration = ", duration=" + requestResponseTime.getTotalTimeMillis();
+			}
 			if (shouldLog && !this.isAsyncStarted(requestToUse)) {
-				this.afterRequest(requestToUse, this.getAfterMessage(requestToUse, response));
+				this.afterRequest(requestToUse,
+						requestMessage + ", " + this.getAfterMessage(requestToUse, response) + requestResponseDuration);
 			}
 		}
 	}
