@@ -6,7 +6,7 @@
 
 	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-dependencies</artifactId>
-	<version>2.2.0-SNAPSHOT</version>
+	<version>2.2.0-alpha3</version>
 	<name>Enterprise Spring Boot Starter/Application Dependencies</name>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -34,8 +34,8 @@
 	</developers>
 
 	<properties>
-		<enterprise-common.version>2.2.0-SNAPSHOT</enterprise-common.version>
-		<enterprise-build-tools.version>2.2.0-SNAPSHOT</enterprise-build-tools.version>
+		<enterprise-common.version>2.2.0-alpha2</enterprise-common.version>
+		<enterprise-build-tools.version>2.2.0-alpha2</enterprise-build-tools.version>
 
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<hazelcast-aws.version>2.1.0</hazelcast-aws.version>
@@ -291,4 +291,90 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>artifact-deploy</id>
+			<properties>
+				<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+				<maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+				<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+				<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+				<sonar-maven-plugin.version>3.6.1.1688</sonar-maven-plugin.version>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>${maven-source-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${maven-javadoc-plugin.version}</version>
+						<configuration>
+							<source>${java.version}</source>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<inherited>true</inherited>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${maven-gpg-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>${nexus-staging-maven-plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>sonatype-nexus-staging</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>false</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.sonarsource.scanner.maven</groupId>
+						<artifactId>sonar-maven-plugin</artifactId>
+						<version>${sonar-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>sonar</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sonar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
