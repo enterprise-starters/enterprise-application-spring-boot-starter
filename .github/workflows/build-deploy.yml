@@ -1,8 +1,11 @@
-name: build
+name: build-deploy
 
 on:
   push:
-  pull_request:
+    branches:
+      - master
+      - '2.2.x'
+      - '2.3.x'
 
 jobs:
   build:
@@ -19,5 +22,5 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-    - name: Build with Maven
-      run: mvn install --file pom.xml
+    - name: Build and Deploy to Sonartype and Sonarcloud
+      run: mvn deploy -P artifact-deploy -Dsonar.login=${{ secrets.sonar_token }} -DaltDeploymentRepository=sonatype-nexus-snapshots::default::https://oss.sonatype.org/content/repositories/snapshots/

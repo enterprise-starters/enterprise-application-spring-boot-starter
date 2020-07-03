@@ -17,9 +17,9 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Publish to the SSORH Repository
+      - name: Build and Publish released version
         uses: samuelmeuli/action-maven-publish@v1.4.0
-        env:
+        with:
           maven_profiles: artifact-deploy
           maven_args: -Dsonar.login=${{ secrets.sonar_token }} -DaltDeploymentRepository=sonatype-nexus-staging::default::https://oss.sonatype.org/service/local/staging/deploy/maven2/
           gpg_private_key: ${{ secrets.gpg_private_key }}
