@@ -84,65 +84,6 @@ public class ResilientMessageListenerContainer extends SimpleMessageListenerCont
 	}
 
 	@Override
-	protected void initialize() {
-		super.initialize();
-
-		initializeRunningStateByQueue();
-		this.scheduledFutureByQueue = new ConcurrentHashMap<>(getRegisteredQueues().size());
-	}
-
-	private void initializeRunningStateByQueue() {
-		this.runningStateByQueue = new ConcurrentHashMap<>(getRegisteredQueues().size());
-		for (String queueName : getRegisteredQueues().keySet()) {
-			this.runningStateByQueue.put(queueName, false);
-		}
-	}
-
-	@Override
-	protected void doStart() {
-		synchronized (this.getLifecycleMonitor()) {
-			scheduleMessageListeners();
-		}
-	}
-
-	@Override
-	protected void doStop() {
-		notifyRunningQueuesToStop();
-		waitForRunningQueuesToStop();
-	}
-
-	private void notifyRunningQueuesToStop() {
-		for (Map.Entry<String, Boolean> runningStateByQueue : this.runningStateByQueue.entrySet()) {
-			if (runningStateByQueue.getValue()) {
-				stopQueue(runningStateByQueue.getKey());
-			}
-		}
-	}
-
-	private void waitForRunningQueuesToStop() {
-		for (Map.Entry<String, Boolean> queueRunningState : this.runningStateByQueue.entrySet()) {
-			String logicalQueueName = queueRunningState.getKey();
-			Future<?> queueSpinningThread = this.scheduledFutureByQueue.get(logicalQueueName);
-
-			if (queueSpinningThread != null) {
-				try {
-					queueSpinningThread.get(getQueueStopTimeout(), TimeUnit.SECONDS);
-				} catch (ExecutionException | TimeoutException e) {
-					getLogger().warn("An exception occurred while stopping queue '" + logicalQueueName + "'", e);
-				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-				}
-			}
-		}
-	}
-
-	private void scheduleMessageListeners() {
-		for (Map.Entry<String, QueueAttributes> registeredQueue : getRegisteredQueues().entrySet()) {
-			startQueue(registeredQueue.getKey(), registeredQueue.getValue());
-		}
-	}
-
-	@Override
 	protected void executeMessage(org.springframework.messaging.Message<String> stringMessage) {
 		getMessageHandler().handleMessage(stringMessage);
 	}
