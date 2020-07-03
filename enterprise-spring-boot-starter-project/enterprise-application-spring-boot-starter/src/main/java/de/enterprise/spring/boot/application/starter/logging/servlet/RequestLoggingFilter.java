@@ -1,4 +1,4 @@
-package de.enterprise.spring.boot.application.starter.logging;
+package de.enterprise.spring.boot.application.starter.logging.servlet;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

@@ -1,9 +1,14 @@
 org.springframework.boot.env.PropertySourceLoader=\
 de.enterprise.spring.boot.application.starter.properties.springboot.env.EncryptedPropertySourceLoader
+
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-de.enterprise.spring.boot.application.starter.logging.LoggingAutoConfiguration,\
-de.enterprise.spring.boot.application.starter.tracing.TracingAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.logging.servlet.LoggingAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.logging.reactive.LoggingAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.tracing.servlet.TracingAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.tracing.reactive.TracingAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.httpclient.reactive.WebClientRequestResponseLoggingAutoConfiguration,\
 de.enterprise.spring.boot.application.starter.clustering.HazelcastAutoConfiguration,\
 de.enterprise.spring.boot.application.starter.exception.rest.RestExceptionHandlerAutoConfiguration,\
 de.enterprise.spring.boot.application.starter.actuate.ActuatorAutoConfiguration,\
-de.enterprise.spring.boot.application.starter.web.singlepage.SinglePageApplicationUiAutoConfiguration
+de.enterprise.spring.boot.application.starter.web.singlepage.servlet.SinglePageApplicationUiAutoConfiguration,\
+de.enterprise.spring.boot.application.starter.web.singlepage.reactive.SinglePageApplicationUiAutoConfiguration

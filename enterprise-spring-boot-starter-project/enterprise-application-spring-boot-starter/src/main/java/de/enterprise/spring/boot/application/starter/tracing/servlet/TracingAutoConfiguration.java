@@ -1,19 +1,15 @@
-package de.enterprise.spring.boot.application.starter.tracing;
-
-import java.util.ArrayList;
-import java.util.List;
+package de.enterprise.spring.boot.application.starter.tracing.servlet;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.web.client.RestTemplate;
 
+import de.enterprise.spring.boot.application.starter.tracing.TracingProperties;
+import de.enterprise.spring.boot.application.starter.tracing.TracingRestTemplateCustomizer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -22,9 +18,11 @@ import lombok.extern.slf4j.Slf4j;
  * @author Malte Geßner
  *
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnWebApplication(type = Type.SERVLET)
 @EnableConfigurationProperties(TracingProperties.class)
 @ConditionalOnProperty(prefix = "enterprise-application.tracing", name = "enabled", havingValue = "true", matchIfMissing = true)
+@Slf4j
 public class TracingAutoConfiguration {
 
 	@Bean
@@ -32,10 +30,6 @@ public class TracingAutoConfiguration {
 		return new TracingRestTemplateCustomizer(tracingProperties);
 	}
 
-	@Configuration
-	@ConditionalOnWebApplication(type = Type.SERVLET)
-	@Slf4j
-	public static class ServletTracingConfiguration {
 	@Bean
 	public FilterRegistrationBean<TracingHeaderFilter> tracingHeaderFilter(TracingProperties tracingProperties) {
 		log.debug("tracing header filter enabled, using requestHeaderName:{}, mdcKey:{}", tracingProperties.getRequestHeaderName(),
@@ -48,27 +42,5 @@ public class TracingAutoConfiguration {
 		filterRegistrationBean.setOrder(tracingProperties.getFilterOrder());
 
 		return filterRegistrationBean;
-		}
-	} 
-
-	private static class TracingRestTemplateCustomizer implements RestTemplateCustomizer {
-
-		private ClientHttpRequestInterceptor interceptor;
-
-		TracingRestTemplateCustomizer(TracingProperties tracingProperties) {
-			this.interceptor = new TracingClientHttpRequestInterceptor(tracingProperties);
-		}
-
-		@Override
-		public void customize(RestTemplate restTemplate) {
-			List<ClientHttpRequestInterceptor> existingInterceptors = restTemplate
-					.getInterceptors();
-			if (!existingInterceptors.contains(this.interceptor)) {
-				List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
-				interceptors.add(this.interceptor);
-				interceptors.addAll(existingInterceptors);
-				restTemplate.setInterceptors(interceptors);
-			}
-		}
 	}
 }

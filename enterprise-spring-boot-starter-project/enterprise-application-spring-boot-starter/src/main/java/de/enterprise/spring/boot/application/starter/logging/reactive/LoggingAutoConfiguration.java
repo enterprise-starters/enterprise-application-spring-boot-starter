@@ -1,11 +1,13 @@
-package de.enterprise.spring.boot.application.starter.logging;
+package de.enterprise.spring.boot.application.starter.logging.reactive;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import de.enterprise.spring.boot.application.starter.logging.LoggingProperties;
 
 /**
  * Configuration class for to auto configure the log web request handling.
@@ -13,7 +15,8 @@ import org.springframework.context.annotation.Configuration;
  * @author Malte Geßner
  *
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnWebApplication(type = Type.REACTIVE)
 @EnableConfigurationProperties(LoggingProperties.class)
 public class LoggingAutoConfiguration {
 
@@ -23,8 +26,7 @@ public class LoggingAutoConfiguration {
 	 * @author Malte Geßner
 	 *
 	 */
-	@Configuration
-	@ConditionalOnWebApplication
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnProperty(prefix = "enterprise-application.logging", name = "web-enabled", havingValue = "true", matchIfMissing = true)
 	public static class WebLoggingEnabled {
 
@@ -42,17 +44,6 @@ public class LoggingAutoConfiguration {
 			requestLoggingFilter.setIncludeClientInfo(loggingProperties.isLogIncomingRequestWithClientInfo());
 
 			return requestLoggingFilter;
-		}
-
-		@Bean
-		public FilterRegistrationBean<RequestLoggingFilter> logFilterRegistrationBean(LoggingProperties loggingProperties,
-				RequestLoggingFilter requestLoggingFilter) {
-
-			FilterRegistrationBean<RequestLoggingFilter> filterRegistrationBean = new FilterRegistrationBean<>();
-			filterRegistrationBean.setFilter(requestLoggingFilter);
-			filterRegistrationBean.setOrder(loggingProperties.getFilterOrder());
-
-			return filterRegistrationBean;
 		}
 	}
 }

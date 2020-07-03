@@ -6,12 +6,12 @@
 
 	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-common</artifactId>
-	<version>2.2.0-alpha3</version>
+	<version>2.2.0-alpha4</version>
 	<name>Enterprise Common</name>
 	<parent>
 		<groupId>de.enterprise-starters</groupId>
 		<artifactId>enterprise-spring-boot-starter-project</artifactId>
-		<version>2.2.0-alpha3</version>
+		<version>2.2.0-alpha4</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 

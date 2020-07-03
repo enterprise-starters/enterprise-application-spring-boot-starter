@@ -1,4 +1,4 @@
-package de.enterprise.spring.boot.application.starter.web.singlepage;
+package de.enterprise.spring.boot.application.starter.web.singlepage.servlet;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.resource.ResourceResolverChain;
 
+import de.enterprise.spring.boot.application.starter.web.singlepage.SinglePageApplicationUiProperties;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,19 +26,14 @@ import lombok.extern.slf4j.Slf4j;
  * @author Malte Geßner
  *
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Slf4j
+@ConditionalOnWebApplication(type = Type.SERVLET)
 @EnableConfigurationProperties(SinglePageApplicationUiProperties.class)
 public class SinglePageApplicationUiAutoConfiguration {
 
-	/**
-	 *
-	 * @author Malte Geßner (Acando GmbH)
-	 *
-	 */
-	@ConditionalOnWebApplication(type = Type.SERVLET)
 	@Configuration
-	public class WebConfig implements WebMvcConfigurer {
+	public class ServletWebConfig implements WebMvcConfigurer {
 		@Autowired
 		private SinglePageApplicationUiProperties singlePageApplicationUiProperties;
 

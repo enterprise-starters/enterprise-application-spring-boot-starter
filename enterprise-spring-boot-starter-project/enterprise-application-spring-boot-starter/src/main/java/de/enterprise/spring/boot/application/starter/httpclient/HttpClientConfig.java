@@ -35,49 +35,49 @@ import lombok.Setter;
 @Validated
 public class HttpClientConfig {
 
-	@Autowired
+	@Autowired(required = false)
 	@Setter(AccessLevel.PRIVATE)
-	private RestTemplateBuilder restTemplateBuilder;
+	protected RestTemplateBuilder restTemplateBuilder;
 
 	@Autowired
 	@Setter(AccessLevel.PRIVATE)
-	private ObjectMapper applicationConfiguredDefaultJacksonObjectMapper;
+	protected ObjectMapper applicationConfiguredDefaultJacksonObjectMapper;
 
 	@Autowired
 	@Setter(AccessLevel.PRIVATE)
-	private LoggingProperties loggingProperties;
+	protected LoggingProperties loggingProperties;
 
 	/**
 	 * base address.
 	 */
 	@NotNull
-	private String baseAddress;
+	protected String baseAddress;
 
 	/**
 	 * Set the timeout in milliseconds used when requesting a connection from the connection. A timeout value of 0 specifies an infinite
 	 * timeout.
 	 */
 	@Min(1)
-	private int connectionRequestTimeout = 5 * 1000;
+	protected int connectionRequestTimeout = 5 * 1000;
 	/**
 	 * Set the connection timeout in milliseconds. A timeout value of 0 specifies an infinite timeout.
 	 */
 	@Min(1)
-	private int connectTimeout = 5 * 1000;
+	protected int connectTimeout = 5 * 1000;
 	/**
 	 * Set the socket read timeout in milliseconds. A timeout value of 0 specifies an infinite timeout.
 	 */
 	@Min(1)
-	private int readTimeout = 30 * 1000;
+	protected int readTimeout = 30 * 1000;
 
 	/**
 	 * Whether to log details of each request and response. Specific property for this restTemplate instance which overwrites the general
-	 * setting ({@link LoggingProperties#isLogOutgoingRequestDetailsEnabled()}.
+	 * setting ({LoggingProperties#isLogOutgoingRequestDetailsEnabled()}.
 	 */
-	private Boolean logDetailsEnabled;
+	protected Boolean logDetailsEnabled;
 
 	@Valid
-	private BasicAuth basicAuth;
+	protected BasicAuth basicAuth;
 
 	/**
 	 * Creates a new configured restTemplateBuilder instance with values from this config class. Given customizedMessageConverters replaced

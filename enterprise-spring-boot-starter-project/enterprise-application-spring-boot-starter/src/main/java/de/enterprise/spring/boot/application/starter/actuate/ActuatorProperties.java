@@ -3,7 +3,6 @@ package de.enterprise.spring.boot.application.starter.actuate;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-import de.enterprise.spring.boot.application.starter.actuate.ActuatorAutoConfiguration.ActuatorSecurityConfiguration;
 import lombok.Getter;
 import lombok.Setter;
 

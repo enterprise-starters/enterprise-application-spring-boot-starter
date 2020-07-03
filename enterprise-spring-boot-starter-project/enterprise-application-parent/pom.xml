@@ -6,12 +6,12 @@
 
 	<groupId>de.enterprise-starters</groupId>
 	<artifactId>enterprise-application-parent</artifactId>
-	<version>2.2.0-alpha3</version>
+	<version>2.2.0-alpha4</version>
 	<name>Enterprise Spring Boot Application Parent</name>
 	<parent>
 		<groupId>de.enterprise-starters</groupId>
 		<artifactId>enterprise-dependencies</artifactId>
-		<version>2.2.0-alpha3</version>
+		<version>2.2.0-alpha4</version>
 		<relativePath>../enterprise-dependencies/pom.xml</relativePath>
 	</parent>
 
@@ -125,6 +125,13 @@
 					<plugin>
 						<groupId>com.github.kongchen</groupId>
 						<artifactId>swagger-maven-plugin</artifactId>
+						<dependencies>
+							<dependency>
+								<groupId>javax.servlet</groupId>
+								<artifactId>servlet-api</artifactId>
+								<version>2.5</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 					<plugin>
 						<groupId>org.springframework.boot</groupId>

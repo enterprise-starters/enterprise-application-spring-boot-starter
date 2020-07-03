@@ -1,4 +1,4 @@
-package de.enterprise.spring.boot.application.starter.tracing;
+package de.enterprise.spring.boot.application.starter.tracing.servlet;
 
 import java.io.IOException;
 
@@ -10,6 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import de.enterprise.spring.boot.application.starter.tracing.TracingProperties;
+import de.enterprise.spring.boot.application.starter.tracing.TracingUtils;
 
 /**
  * Servlet Filter implementation to add tracing info to {@link MDC} thread local context.

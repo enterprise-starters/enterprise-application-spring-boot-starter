@@ -22,5 +22,6 @@ public class TracingProperties {
 	private String requestHeaderName = "X-TraceId";
 	private String mdcKey = "traceId";
 	private String applicationName;
+	private String sessionIdKey = "sessionId";
 	private int filterOrder = OrderedFilter.REQUEST_WRAPPER_FILTER_MAX_ORDER - 103;
 }

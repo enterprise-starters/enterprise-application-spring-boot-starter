@@ -55,11 +55,12 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 			msg.append("Outgoing REST request with requestUuid=").append(requestUuid).append(VALUE_SEPARATOR)
 					.append(requestdetails).append(VALUE_SEPARATOR)
 					.append("headers=").append(maskSensitiveHeaders(request.getHeaders()));
-			// TODO über Property steuerbar machen!?
-			boolean skipLogBody = request.getHeaders().getContentType() != null
-					&& "multipart".equals(request.getHeaders().getContentType().getType());
-			if (!skipLogBody && body.length > 0) {
-				msg.append(VALUE_SEPARATOR).append("requestBody=").append(new String(body, "UTF-8"));
+			if (this.loggingProperties.isLogOutgoingRequestWithPayload()) {
+				boolean multipartBody = request.getHeaders().getContentType() != null
+						&& "multipart".equals(request.getHeaders().getContentType().getType());
+				if (!multipartBody && body.length > 0) {
+					msg.append(VALUE_SEPARATOR).append("requestBody=").append(new String(body, "UTF-8"));
+				}
 			}
 			log.info(msg.toString());
 		}
@@ -74,11 +75,11 @@ public class RequestResponseLoggingInterceptor implements ClientHttpRequestInter
 					.append("statusCode=").append(response.getStatusCode()).append(VALUE_SEPARATOR)
 					.append("statusText=").append(response.getStatusText()).append(VALUE_SEPARATOR)
 					.append("headers=").append(response.getHeaders());
-
-			String responseBody = StreamUtils.copyToString(response.getBody(), Charset.defaultCharset());
-			if (!StringUtils.isBlank(responseBody)) {
-				msg.append(VALUE_SEPARATOR).append("responseBody=")
-						.append(StreamUtils.copyToString(response.getBody(), Charset.defaultCharset()));
+			if (this.loggingProperties.isLogOutgoingRequestWithPayload()) {
+				String responseBody = StreamUtils.copyToString(response.getBody(), Charset.defaultCharset());
+				if (!StringUtils.isBlank(responseBody)) {
+					msg.append(VALUE_SEPARATOR).append("responseBody=").append(responseBody);
+				}
 			}
 			log.info(msg.toString());
 		}

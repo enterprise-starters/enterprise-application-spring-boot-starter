@@ -50,6 +50,7 @@ public class LoggingProperties {
 	 * Outgoing Requests (RestTemplate)
 	 */
 	private boolean logOutgoingRequestDetailsEnabled = false;
+	private boolean logOutgoingRequestWithPayload;
 	private List<String> sensitiveRequestParameters;
 	private List<String> sensitiveOutgoingHeaders;
 
