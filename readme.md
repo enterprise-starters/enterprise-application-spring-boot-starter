@@ -54,8 +54,8 @@ Jeder Schritt aus dem Tutorial ist dort in der Commit-Historie nachvollziehbar.
 -->
 
 Folgende Tutorials gibt es zum Enterprise-Spring-Boot-Starter:
-- [Basis Tutorial](./enterprise-spring-boot-starter-tutorials/tutorial-basics/readme.md)
-- [Tutorial Clustering](./enterprise-spring-boot-starter-tutorials/tutorial-clustering/readme.md)
+- [Basis Tutorial](./enterprise-spring-boot-starter-tutorials/tutorial-basics/README.md)
+- [Tutorial Clustering](./enterprise-spring-boot-starter-tutorials/tutorial-clustering/README.md)
 
 <!--- - TODO Tutorial Service 2 Service Security -->
 <!---
