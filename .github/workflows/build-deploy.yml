@@ -23,4 +23,11 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Build and Deploy to Sonartype and Sonarcloud
-      run: mvn deploy -P artifact-deploy -Dsonar.login=${{ secrets.sonar_token }} -DaltDeploymentRepository=sonatype-nexus-snapshots::default::https://oss.sonatype.org/content/repositories/snapshots/
+      uses: samuelmeuli/action-maven-publish@v1.4.0
+      with:
+        maven_profiles: artifact-deploy
+        maven_args: -Dsonar.login=${{ secrets.sonar_token }} -DaltDeploymentRepository=sonatype-nexus-snapshots::default::https://oss.sonatype.org/content/repositories/snapshots/
+        gpg_private_key: ${{ secrets.gpg_private_key }}
+        gpg_passphrase: ${{ secrets.gpg_passphrase }}
+        nexus_username: ${{ secrets.OSSRH_USERNAME }}
+        nexus_password: ${{ secrets.OSSRH_PASSWORD }}
