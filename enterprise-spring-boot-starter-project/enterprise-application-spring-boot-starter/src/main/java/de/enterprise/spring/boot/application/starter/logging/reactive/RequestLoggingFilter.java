@@ -153,6 +153,7 @@ public class RequestLoggingFilter implements WebFilter, Ordered {
 		msg.append("status=").append(responseStatus.value());
 
 		if (this.isIncludeHeaders()) {
+			// TODO mask sensitive headers
 			msg.append(", headers=").append(response.getHeaders());
 		}
 

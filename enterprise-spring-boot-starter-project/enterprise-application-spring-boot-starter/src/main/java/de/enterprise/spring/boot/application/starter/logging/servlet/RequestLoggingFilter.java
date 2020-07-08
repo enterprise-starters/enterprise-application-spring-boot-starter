@@ -39,6 +39,8 @@ public class RequestLoggingFilter extends AbstractRequestLoggingFilter {
 
 	private boolean recordDuration;
 
+	private List<String> sensitiveHeaders;
+
 	@ManagedOperation
 	public boolean isRecordDuration() {
 		return this.recordDuration;
@@ -162,9 +164,13 @@ public class RequestLoggingFilter extends AbstractRequestLoggingFilter {
 		Enumeration<String> headerNames = request.getHeaderNames();
 		while (headerNames.hasMoreElements()) {
 			String headerName = headerNames.nextElement();
-			Enumeration<String> headers = request.getHeaders(headerName);
-			while (headers.hasMoreElements()) {
-				resultList.add(headerName + ":\"" + headers.nextElement() + "\"");
+			if (this.sensitiveHeaders != null && this.sensitiveHeaders.contains(headerName)) {
+				resultList.add(headerName + ":\"**********\"");
+			} else {
+				Enumeration<String> headers = request.getHeaders(headerName);
+				while (headers.hasMoreElements()) {
+					resultList.add(headerName + ":\"" + headers.nextElement() + "\"");
+				}
 			}
 		}
 		return resultList.toString();
@@ -291,6 +297,15 @@ public class RequestLoggingFilter extends AbstractRequestLoggingFilter {
 	@Override
 	public boolean isIncludePayload() {
 		return super.isIncludePayload();
+	}
+
+	// TODO @ManagedOperation ergänzen?
+	public void setSensitiveHeaders(List<String> sensitiveHeaders) {
+		this.sensitiveHeaders = sensitiveHeaders;
+	}
+
+	public List<String> getSensitiveHeaders() {
+		return this.sensitiveHeaders;
 	}
 
 }
