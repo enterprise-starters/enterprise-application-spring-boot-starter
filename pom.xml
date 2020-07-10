@@ -166,6 +166,8 @@
 							<serverId>sonatype-nexus-staging</serverId>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 							<autoReleaseAfterClose>false</autoReleaseAfterClose>
+							<keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
+							<stagingProgressTimeoutMinutes>10</stagingProgressTimeoutMinutes>
 						</configuration>
 					</plugin>
 					<plugin>
