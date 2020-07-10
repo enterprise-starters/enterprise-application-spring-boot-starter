@@ -63,8 +63,8 @@
 	<reporting>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -142,6 +142,9 @@
 						<configuration>
 							<failOnError>false</failOnError>
 						</configuration>
+						<dependencies>
+
+						</dependencies>
 					</plugin>
 					<plugin>
 						<groupId>org.jacoco</groupId>

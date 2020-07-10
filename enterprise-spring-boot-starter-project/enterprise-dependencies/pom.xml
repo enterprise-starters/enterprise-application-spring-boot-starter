@@ -52,7 +52,9 @@
 		<jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
 		<swagger-maven-plugin.version>3.1.8</swagger-maven-plugin.version>
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-		<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
+		<spotbugs-maven-plugin.version>4.0.4</spotbugs-maven-plugin.version>
+		<spotbugs.version>4.0.6</spotbugs.version>
+		<google-findbugs-jsr305.version>3.0.2</google-findbugs-jsr305.version>
 		<maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
 		<maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
 
@@ -137,6 +139,12 @@
 				<artifactId>nosqlunit-mongodb</artifactId>
 				<version>${nosqlunit-mongodb.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.google.code.findbugs</groupId>
+				<artifactId>jsr305</artifactId>
+				<version>${google-findbugs-jsr305.version}</version>
+				<scope>provided</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -198,9 +206,16 @@
 					<version>${maven-release-plugin.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>${findbugs-maven-plugin.version}</version>
+					<groupId>com.github.spotbugs</groupId>
+					<artifactId>spotbugs-maven-plugin</artifactId>
+					<version>${spotbugs-maven-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.github.spotbugs</groupId>
+							<artifactId>spotbugs</artifactId>
+							<version>${spotbugs.version}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.jacoco</groupId>
