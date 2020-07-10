@@ -338,6 +338,7 @@
 						<version>${maven-javadoc-plugin.version}</version>
 						<configuration>
 							<source>${java.version}</source>
+							<detectJavaApiLink>false</detectJavaApiLink>
 						</configuration>
 						<executions>
 							<execution>
