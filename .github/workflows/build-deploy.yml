@@ -25,6 +25,7 @@ jobs:
     - name: Build and Deploy to Sonartype and Sonarcloud
       uses: samuelmeuli/action-maven-publish@v1.4.0
       with:
+        maven_profiles: 
         maven_args: -Dsonar.login=${{ secrets.sonar_token }} -DaltDeploymentRepository=sonatype-nexus-staging::default::https://oss.sonatype.org/content/repositories/snapshots/
         gpg_private_key: ${{ secrets.gpg_private_key }}
         gpg_passphrase: ${{ secrets.gpg_passphrase }}
