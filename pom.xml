@@ -108,6 +108,9 @@
 			</modules>
 		</profile>
 		<profile>
+			<id>deploy</id>
+		</profile>		
+		<profile>
 			<id>artifact-deploy</id>
 			<build>
 				<plugins>
