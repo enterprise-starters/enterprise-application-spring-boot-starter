@@ -27,3 +27,5 @@ jobs:
           server_id: sonatype-nexus-staging
           nexus_username: ${{ secrets.OSSRH_USERNAME }}
           nexus_password: ${{ secrets.OSSRH_PASSWORD }}
+        env:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
