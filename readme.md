@@ -13,13 +13,13 @@ Der Enterprise-Starter definiert ein Standard-Setup und ein Standard-Vorgehen un
 Der Enterprise-Starter ist eine Sammlung von verschiedenen Bibliotheken, in die die Best Practices aus diversen IT-Projekten eingeflossen sind. Bei Verwendung des Enterprise-Starters kommt also Code zum Einsatz, der sich bereits bewährt hat. 
 Dazu hat der Enterprise-Starter auch den Anspruch den enthaltenen Code bzw. die vorhandenen Funktionen durch Dokumentation sowie Tutorials auch verstehbar und leicht einsetzbar zu machen.
 
-Darüberhinaus liefert der Starter ein bewährtes Standard-Vorgehen für neue Projekte. Er enthält eine Anleitung zum initialen Einrichten der Arbeitsumgebung eines Entwicklers. 
+Darüber hinaus liefert der Starter ein bewährtes Standard-Vorgehen für neue Projekte. Er enthält eine Anleitung zum initialen Einrichten der Arbeitsumgebung eines Entwicklers. 
 
 ### Was heißt das jetzt technisch?
-Das Enterprise-Starter-Projekt baut auf Spring-Boot auf. Wie bei Spring-Boot gibt es auch im Enterprise-Starter-Projekt einen Basis-_Starter_, sowie Basis-_Parents_. Hinzu kommen spezifische Starter für verschiedene Technologien, wie zum Beispiel der Enterprise-Kubernetes-Starter, der dann interessant ist, wenn der zu entwickelnde Service auf einem Kuberenetes Cluster installiert werden soll.
+Das Enterprise-Starter-Projekt baut auf Spring-Boot auf. Wie bei Spring-Boot gibt es auch im Enterprise-Starter-Projekt einen Basis-_Starter_, sowie Basis-_Parents_. Hinzu kommen spezifische Starter für verschiedene Technologien, wie zum Beispiel der Enterprise-Kubernetes-Starter, der dann interessant ist, wenn der zu entwickelnde Service auf einem Kubernetes Cluster installiert werden soll.
 
 <!-- Konzept Spring-Boot-Starter -->
-Das Konzept von Spring-Boot-Startern ist die Auslagerung notwendiger (Basis-)Konfiguration in ein referenziebares Artefakt. Statt diese Konfiguration in jedem Projekt einzeln durchführen zu müssen, muss lediglich der Starter als Abhängigkeit eingebunden werden. Die Standardkonfiguration aus dem Starter, kann bei Bedarf auch noch wieder geändert werden, zumeist über Properties. Dieses Prinzip wird auch als _Convention over Configuration_ beschrieben.
+Das Konzept von Spring-Boot-Startern ist die Auslagerung notwendiger (Basis-)Konfiguration in ein referenzierbares Artefakt. Statt diese Konfiguration in jedem Projekt einzeln durchführen zu müssen, muss lediglich der Starter als Abhängigkeit eingebunden werden. Die Standardkonfiguration aus dem Starter, kann bei Bedarf auch noch wieder geändert werden, zumeist über Properties. Dieses Prinzip wird auch als _Convention over Configuration_ beschrieben.
 
 <!-- Enterprise-Application-Starter-->
 Der [Enterprise-Application-Spring-Boot-Starter](./enterprise-spring-boot-starter-project/enterprise-application-spring-boot-starter), oben als Basis-Starter bezeichnet, ist eine Codebibliothek, die bewährte und getestete Implementierungen bzw. Lösungen enthält. Gleichzeitig wird damit auch ein technisches Standard-Setup definiert, also eine Auswahl an Bibliotheken, deren Einsatz sich in der Vergangenheit bewährt hat. Beim Einsatz in einem Projekt bringt der Enterprise-Application-Starter einerseits einen Großteil der Basiskonfiguration mit, andererseits kann er auch für das Projekt individualisiert werden, sodass der nächste Microservice kaum noch Aufwand bereitet.
@@ -49,7 +49,7 @@ Insgesamt bietet das Enterprise-Starter-Projekt eine sehr gute Basis für die En
 ## Tutorials
 Die Idee der Tutorials ist, die Features der Enterprise-Starter-Toolbox aufzuzeigen. Jedes Tutorial ist so konzipiert, dass es Schritt für Schritt nachprogrammiert werden kann. 
 
-<!-- Zu jedem Turorial gibt es ein separates Git-Repository, in dem der zugehörige Quellcode abgelegt ist.
+<!-- Zu jedem Tutorial gibt es ein separates Git-Repository, in dem der zugehörige Quellcode abgelegt ist.
 Jeder Schritt aus dem Tutorial ist dort in der Commit-Historie nachvollziehbar.
 -->
 
