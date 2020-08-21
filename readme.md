@@ -24,7 +24,7 @@ Das Konzept von Spring-Boot-Startern ist die Auslagerung notwendiger (Basis-)Kon
 <!-- Enterprise-Application-Starter-->
 Der [Enterprise-Application-Spring-Boot-Starter](./enterprise-spring-boot-starter-project/enterprise-application-spring-boot-starter), oben als Basis-Starter bezeichnet, ist eine Codebibliothek, die bewährte und getestete Implementierungen bzw. Lösungen enthält. Gleichzeitig wird damit auch ein technisches Standard-Setup definiert, also eine Auswahl an Bibliotheken, deren Einsatz sich in der Vergangenheit bewährt hat. Beim Einsatz in einem Projekt bringt der Enterprise-Application-Starter einerseits einen Großteil der Basiskonfiguration mit, andererseits kann er auch für das Projekt individualisiert werden, sodass der nächste Microservice kaum noch Aufwand bereitet.
 
->TODO: Für die Individualisierung pro Projekt sollte ein eigener Starter angelegt werden, der den Enterprise-Spring-Boot-Starter einbindet.
+<!-- TODO: Für die Individualisierung pro Projekt sollte ein eigener Starter angelegt werden, der den Enterprise-Spring-Boot-Starter einbindet. --> 
 
 <!-- Parents -->
 Zusätzlich zu den verschiedenen Startern gibt es im Enterprise-Starter-Projekt auch Parent-Artefakte, über die vor allem Versionen von Abhängigkeiten, sowie die Schritte des Build-Prozesses definiert werden. Auch hier ist der Zweck die Zentralisierung von Konfiguration, sodass diese im konkreten Projekt geerbt werden kann und nur bei Bedarf verändert werden muss.
