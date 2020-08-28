@@ -1,0 +1,58 @@
+<settings>
+
+	<profiles>
+		<profile>
+			<id>enterprise-starters</id>
+			<!--Enable snapshots for the built in central repo to direct -->
+			<!--all requests to nexus via the mirror -->
+			<repositories>
+				<repository>
+					<id>ossrh</id>
+					<name>OSS RH Apache Maven Packages</name>
+					<url>https://oss.sonatype.org/content/groups/public/</url>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<releases>
+						<enabled>true</enabled>
+					</releases>					
+				</repository>
+				<repository>
+					<id>spring-milestone</id>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/milestone</url>
+				</repository>
+				<repository>
+					<id>spring-snapshot</id>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/snapshot</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>spring-milestone</id>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/milestone</url>
+				</pluginRepository>
+				<pluginRepository>
+					<id>spring-snapshot</id>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/snapshot</url>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+
+	<activeProfiles>
+		<!--make the profile active all the time -->
+		<activeProfile>enterprise-starters</activeProfile>
+	</activeProfiles>
+</settings>
