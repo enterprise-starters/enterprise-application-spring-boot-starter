@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+de.enterprise.starters.azure.DefaultPropertiesAutoConfiguration,\
 de.enterprise.starters.azure.AzureAutoConfiguration

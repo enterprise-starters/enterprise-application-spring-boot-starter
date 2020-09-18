@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-de.enterprise.starters.jpa.data.auditing.AuditingAutoConfiguration
+de.enterprise.starters.jpa.DefaultPropertiesAutoConfiguration,\
+de.enterprise.starters.jpa.data.auditing.AuditingAutoConfiguration\

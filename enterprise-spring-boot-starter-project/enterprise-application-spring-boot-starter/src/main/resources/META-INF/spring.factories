@@ -2,6 +2,7 @@ org.springframework.boot.env.PropertySourceLoader=\
 de.enterprise.spring.boot.application.starter.properties.springboot.env.EncryptedPropertySourceLoader
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+de.enterprise.spring.boot.application.starter.application.DefaultPropertiesAutoConfiguration,\
 de.enterprise.spring.boot.application.starter.logging.servlet.LoggingAutoConfiguration,\
 de.enterprise.spring.boot.application.starter.logging.reactive.LoggingAutoConfiguration,\
 de.enterprise.spring.boot.application.starter.tracing.servlet.TracingAutoConfiguration,\
@@ -12,3 +13,5 @@ de.enterprise.spring.boot.application.starter.exception.rest.RestExceptionHandle
 de.enterprise.spring.boot.application.starter.actuate.ActuatorAutoConfiguration,\
 de.enterprise.spring.boot.application.starter.web.singlepage.servlet.SinglePageApplicationUiAutoConfiguration,\
 de.enterprise.spring.boot.application.starter.web.singlepage.reactive.SinglePageApplicationUiAutoConfiguration
+
+org.springframework.context.ApplicationListener=de.enterprise.spring.boot.application.starter.application.EnterpriseStarterInitApplicationListener
