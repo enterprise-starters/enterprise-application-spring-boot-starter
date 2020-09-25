@@ -1,5 +1,8 @@
 org.springframework.boot.env.PropertySourceLoader=\
-de.enterprise.spring.boot.application.starter.properties.springboot.env.EncryptedPropertySourceLoader
+de.enterprise.spring.boot.application.starter.properties.springboot.env.EncryptedPropertiesPropertySourceLoader,\
+de.enterprise.spring.boot.application.starter.properties.springboot.env.EncryptedYamlPropertySourceLoader
+
+org.springframework.boot.env.EnvironmentPostProcessor=de.enterprise.spring.boot.application.starter.properties.springboot.env.EncryptedPropertiesEnvironmentPostProcessor
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 de.enterprise.spring.boot.application.starter.application.DefaultPropertiesAutoConfiguration,\

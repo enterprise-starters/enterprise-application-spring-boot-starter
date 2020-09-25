@@ -1,0 +1,42 @@
+enterprise-application:
+  application:
+    name: Test
+  hazelcast:
+    discovery-type: Tcp
+    group-name: a
+    tcp-discovery-config:
+      members: 127.0.0.1
+      port: 9999
+  logging:
+    app-name: starter
+    appender-console-pattern: '%d{HH:mm:ss.SSS} %-5level %X{traceId} %logger{36} -
+      %msg%n'
+    appender-container-console-pattern: '%d{yyyy-MM-dd HH:mm:ss.SSS} logLevel=%level
+      traceId=%X{traceId} %logger{36} - %msg%n'
+    appender-logfile-pattern: '%d{yyyy-MM-dd HH:mm:ss.SSS} logLevel=%level traceId=%X{traceId}
+      %logger{36} - %msg%n'
+  project:
+    artifact-id: artifactId
+    group-id: groupId
+    name: Test
+    version: 234
+management:
+  health:
+    hazelcast:
+      enabled: false
+spring:
+  encrypted:
+    property:
+      key:
+        alias: mytestkey
+        password: ttves2018
+      keystore:
+        password:
+          path: ./src/test/resources/de/enterprise/spring/boot/application/starter/properties/keystore.password
+        path: ./src/test/resources/de/enterprise/spring/boot/application/starter/properties/keystore.jks
+  security:
+    user:
+      name: test
+      password: $2a$10$UzNdN3kT3DDYLGkjiYh/TOqEJeDcfi/19tfPyJmIRAq3fzIVy6tqK
+test:
+  password: ENC(AQAcKYQoiXQnh2XSmuK4GLy/pXlW55IwfoGIXQLMXZkiydNBo4Es+2bKB/US7nizpkYWvClQlM5P6lLALG0BqYGcAHfNVJZkhjAUA1x6StxzoVQFKY1fFEOtuq4THyYdXQ9vIXIf2HNVIBLNmq5Xy2QY9FnrozslB7vSD4OlEKMJ/woQBb46de0eQ/hwo3vXxLGBryUEvP0P3LFPrhf9FgwJ2+w67r9zHce0dSkJm4TI1SH2xi2H2XMkRdLEKCowSPoABSCZWnz3RKyMM3JqbAMQDnpw9nZWfJSTD/M3DL6mvTQUiF14D1Ja51KqkXRJpw3bjjKEa+aGYHjek9MuGM+OGb3aJtQuNZzXyKTOBjmzmfil7lLTjZn0BAnszGJVKENfU4FJcLv/)
