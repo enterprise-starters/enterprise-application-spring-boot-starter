@@ -1,10 +1,11 @@
 package de.enterprise.spring.boot.application.starter.properties.springboot.env;
 
+import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 
 @SuppressWarnings("rawtypes")
-public class EncryptablePropertySource extends PropertySource {
+public class EncryptablePropertySource extends EnumerablePropertySource {
 
 	private static final String ENCRYPTED_VALUE_PREFIX = "ENC(";
 	private static final String ENCRYPTED_VALUE_SUFFIX = ")";
@@ -57,5 +58,13 @@ public class EncryptablePropertySource extends PropertySource {
 
 	void setTextEncrypter(TextEncryptor textEncryptor) {
 		this.textEncryptor = textEncryptor;
+	}
+
+	@Override
+	public String[] getPropertyNames() {
+		if (this.originPropertySource instanceof EnumerablePropertySource) {
+			return ((EnumerablePropertySource) this.originPropertySource).getPropertyNames();
+		}
+		return null;
 	}
 }

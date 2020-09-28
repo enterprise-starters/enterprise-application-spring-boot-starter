@@ -7,7 +7,6 @@
 		<property name="fileExtensions" value="java" />
 	</module> -->
  	<module name="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck">
-		<property name="lineSeparator" value="lf"/>
 		<property name="fileExtensions" value="java" />
 	</module>
 
