@@ -50,8 +50,6 @@ Per Default sind bei lokaler Entwicklung die Profile `dev`, `dev-local` und `<Co
 
 ### Default-Properties
 
-<!-- TODO Doku aktualisieren -->
-
 Die Dateien `src/main/resources/application-enterprise-starter.properties` und `src/main/resources/logging-enterprise-starter.properties` enthalten Default-Properties, die bei jedem Service greifen, der diesen Starter einbindet.
 
 In den Default-Properties werden eingebundene Spring Boot Starter konfiguriert oder Default-Werte für die Features des Enterprise-Application-Starters hinterlegt.
