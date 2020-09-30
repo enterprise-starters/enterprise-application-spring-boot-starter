@@ -1,6 +1,6 @@
 # Integration des Enterprise-Starters in eine Spring-Boot-Anwendung
 
-Im Folgenden ist eine Step by Step Anleitung zu finden, wie der Enterprise-Starter in eine Spring-Boot-Anwendung integriert werden kann. Gerade wenn der Enterprise-Starter das erste mal verwendet wird, empfiehlt es sich die Schritte alle selber einmal durchzugehen.
+Im Folgenden ist eine Step by Step Anleitung zu finden, wie der Enterprise-Starter in eine Spring-Boot-Anwendung integriert werden kann. Gerade wenn der Enterprise-Starter zum ersten Mal verwendet wird, empfiehlt es sich die Schritte alle selber einmal durchzugehen.
 
 <!-- Für die Eiligen, die direkt loslegen wollen, findet sich weiter unten das Kapitel _Enterprise-Starter Quick Start_. -->
 
@@ -18,7 +18,6 @@ Dies ist eine Auflistung der einzelnen Schritte, die notwendig sind für die Int
 
 Die notwendigen Schritte im Überblick:
 - Application-Starter in pom.xml einbinden
-- Verwenden der AbstractApplication
 - Property-Dateien anlegen
 - Logging mit Logback konfigurieren
 - Anpassen der Integration-Test-Klassen
@@ -78,25 +77,6 @@ In diesen Fällen empfiehlt es sich, das Artefakt `enterprise-dependencies` als 
 </dependencies>
 ...
 ```
-
-
-## Verwenden der AbstractApplication
-Die Haupt-Application-Klasse, die bei einer herkömmlichen Spring-Boot-Anwendung mit `@SpringBootApplication` annotiert ist und die `main`-Methode enthält, muss wie folgt angepasst werden:
-
-```java
-...
-import de.enterprise.spring.boot.application.starter.application.AbstractApplication;
-
-public class DemoServiceApplication extends AbstractApplication {
-    public static void main(String[] args) {
-        new DemoServiceApplication().run();
-    }
-}
-```
-
-Die hier erweiterte `AbstractApplication` aus dem `enterprise-application-spring-boot-starter` ist mit `@SpringBootApplication` annotiert, daher muss die eigene Klasse diese Annotation nicht mehr verwenden. Der Name der Application-Klasse, hier `DemoServiceApplication` ist frei wählbar.
-
-In der `AbstractApplication` ist vor Allem die Erweiterung des Property-Mechanismus enthalten, also das Einbinden von Default-Properties, sowie eine Unterstützung für die lokale Ausführung. Details dazu sind in der [Readme des enterprise-application-spring-boot-starter](../enterprise-application-spring-boot-starter/README.md#abstract-application-für-vereinfachten-start-mit-default-properties) zu finden. 
 
 ## Property-Dateien anlegen
 
@@ -194,11 +174,8 @@ Zusätzlich wird für die Tests eine zweite Logback-Datei benötigt. Das liegt d
 Eine Integrationtest-Klasse muss wie folgt aussehen:
 
 ```java
-...
-import de.enterprise.spring.boot.application.starter.application.AbstractApplication;
-
-@SpringBootTest(classes = DemoServiceApplication.class)
-@ActiveProfiles(AbstractApplication.INTEGRATION_TEST_PROFILE)
+@SpringBootTest
+@ActiveProfiles("integrationtest")
 public class DemoServiceApplicationTest {
 
     @Test
@@ -208,14 +185,15 @@ public class DemoServiceApplicationTest {
 }
 ```
 Erklärungen:
-- `@ExtendWith(SpringExtension.class)` <br/>
-  Definiert einen Spring-Integrationtest mit JUnit 5
-- `@SpringBootTest(classes = DemoServiceApplication.class)` <br/>
-Spring-Boot-Test, Haupt-Application-Klasse wird nicht automatisch von Spring-Boot gefunden, da die `@SpringBootApplication`-Annotation nicht direkt an der Klasse ist, sondern geerbt wird. Daher muss die Application-Klasse hier explizit angegeben werden. 
-- `@ActiveProfiles(AbstractApplication.INTEGRATION_TEST_PROFILE)` <br/>
-Wird benätigt, damit die Default-Properties aus dem Starter auch bei den Tests greifen und die Property-Datei `src/test/resources/application-integrationtest.properties` gezogen wird.
+- `@SpringBootTest` <br/>
+Definiert einen Spring-Boot-Test. Der komplette Application-Context wird dabei hochgefahren.
+- `@ActiveProfiles("integrationtest")` <br/>
+Aktiviert das Profil `integrationtest` für den Test. Dies sorgt dafür, dass die Property-Datei `src/test/resources/application-integrationtest.properties` gezogen wird.
+<!-- Wird benötigt, damit die Default-Properties aus dem Starter auch bei den Tests greifen
 
-> Empfehlung: Anlegen einer abstrakten Testklasse mit diesen drei Annotationen und jede Integration-Test-Klasse davon erben lassen. So spart man sich die explizite Angabe in den einzelnen Testklassen.
+TODO Malte, das ist nicht mehr der Fall, oder? -->
+
+> Empfehlung: Anlegen einer abstrakten Testklasse mit diesen zwei Annotationen und jede Integration-Test-Klasse davon erben lassen. So spart man sich die explizite Angabe in den einzelnen Testklassen.
 
 ## Was bringt der Starter mit? Was muss im Projekt nicht mehr definiert werden?
 
@@ -232,10 +210,11 @@ Der Enterprise-Application-Starter definiert viele Default-Properties, die dann 
 
 
 # Best Practices
-### Package Struktur
+### Package Struktur und Klassennamen
+Am einfachsten ist es, edes neue Projekt über start.spring.io erzeugen. Dann werden die folgenden drei Punkte automatisch berücksichtigt:
 - Basis-Package sollte spezifisch sein, nicht nur `de.enterprise`, sondern eher `de.enterprise.smartoffice.appointmentmanagementservice`. Als Vorgehensweise kann man die Maven-GroupId und die Maven-ArtefactId hintereinanderhängen.
 - Die Application-Klasse sollte immer direkt in dem Basis-Package liegen, alle weiteren Klassen der Anwendung im gleichen Package oder in Sub-Packages, damit der Spring-ComponentScan wie geplant funktioniert. Siehe dazu auch https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-structuring-your-code.html
-- Am Besten: Jedes neue Projekt über start.spring.io erzeugen, dann sind diese beiden Punkte schonmal eingehalten :)
+- Der Name der Application-Klasse sollte immer auf `Application` enden.
 
 ### Verwendung von Lombok
 - Zur Vermeidung von Boilerplate Code (Getter, Setter, etc) sollte Lombok verwendet werden.

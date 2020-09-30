@@ -15,7 +15,7 @@ Um die Features des Enterprise-Spring-Boot-Application-Starters zu nutzen, muss 
 
 Features
 ========
-- Abstract Application für vereinfachten Start mit Default-Properties
+- Schneller Entwicklungs-Start mit aktiven lokalen Spring-Profilen und Default-Properties
 - Allgemein gültige Klassen
   * spezielle Exceptions inkl. ExceptionHandler
   * Validierungs-Annotation für SpEL
@@ -37,28 +37,22 @@ Features
 Details zu den Features
 =======================
 
-## Abstract Application für vereinfachten Start mit Default-Properties
+## Schneller Entwicklungs-Start mit aktiven lokalen Spring-Profilen und Default-Properties
 
-### AbstractApplication
+<!-- TODO: Dokumentation der neuen Property-Hierarchie?-->
+
+### Aktivieren lokaler Spring-Profile
 Bei der "normalen" Spring-Boot Initialisierung wird per Default kein Spring Profil aktiviert. Um eine komfortablere Entwicklung in der lokalen Entwicklungsumgebung zu ermöglichen, werden zusätzliche Profile per Default aktiviert. Dadurch kann jeder Entwickler sofort mit der lokalen Entwicklung und der passenden Umgebung loslegen.
 
-Diese Anpassungen können durch Erweiterung der Klasse `AbstractApplication` verwendet werden. Eine eigene `*Application` Klasse sieht dann wie folgt aus: 
-
-```java
-public class DemoServiceApplication extends AbstractApplication {
-	public static void main(String[] args) {
-		new DemoServiceApplication().run();
-	}
-}
-```
-
-Per Default sind dann bei lokaler Entwicklung die Profile `dev`, `dev-local` und `<Computername>` aktiviert. Das ermöglicht das komfortable Setzen von lokalen Konfigurationen.
+Per Default sind bei lokaler Entwicklung die Profile `dev`, `dev-local` und `<Computername>` aktiviert. Das ermöglicht das komfortable Setzen von lokalen Konfigurationen.
 
 > __Hinweis für Linux und Mac-User__: Damit dieses Feature wie vorgesehen funktioniert, muss die Umgebungsvariable `COMPUTERNAME` gesetzt werden. Bei Windows ist diese automatische gefüllt.
 
 ### Default-Properties
 
-Die Datei `src/main/resources/application-default.properties` enthält Default-Properties, die bei jedem Service greifen, der diesen Starter einbindet und die `AbstractApplication` nutzt.
+<!-- TODO Doku aktualisieren -->
+
+Die Dateien `src/main/resources/application-enterprise-starter.properties` und `src/main/resources/logging-enterprise-starter.properties` enthalten Default-Properties, die bei jedem Service greifen, der diesen Starter einbindet.
 
 In den Default-Properties werden eingebundene Spring Boot Starter konfiguriert oder Default-Werte für die Features des Enterprise-Application-Starters hinterlegt.
 
