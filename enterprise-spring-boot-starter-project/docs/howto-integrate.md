@@ -189,9 +189,6 @@ Erklärungen:
 Definiert einen Spring-Boot-Test. Der komplette Application-Context wird dabei hochgefahren.
 - `@ActiveProfiles("integrationtest")` <br/>
 Aktiviert das Profil `integrationtest` für den Test. Dies sorgt dafür, dass die Property-Datei `src/test/resources/application-integrationtest.properties` gezogen wird.
-<!-- Wird benötigt, damit die Default-Properties aus dem Starter auch bei den Tests greifen
-
-TODO Malte, das ist nicht mehr der Fall, oder? -->
 
 > Empfehlung: Anlegen einer abstrakten Testklasse mit diesen zwei Annotationen und jede Integration-Test-Klasse davon erben lassen. So spart man sich die explizite Angabe in den einzelnen Testklassen.
 
