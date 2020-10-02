@@ -1,1 +1,4 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=de.enterprise.starters.mongodb.starter.MongoDbAutoConfiguration,de.enterprise.starters.mongodb.auditing.AuditingAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=
+de.enterprise.starters.mongodb.DefaultPropertiesAutoConfiguration,\
+de.enterprise.starters.mongodb.starter.MongoDbAutoConfiguration,\
+de.enterprise.starters.mongodb.auditing.AuditingAutoConfiguration

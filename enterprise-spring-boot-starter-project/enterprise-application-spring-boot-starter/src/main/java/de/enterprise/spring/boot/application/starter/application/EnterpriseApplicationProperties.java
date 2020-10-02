@@ -15,7 +15,6 @@ import lombok.Setter;
  * @author Malte Geßner
  *
  */
-
 @ConfigurationProperties(prefix = "enterprise-application")
 @Getter
 @Setter
