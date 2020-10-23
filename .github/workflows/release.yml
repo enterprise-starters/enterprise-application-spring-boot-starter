@@ -20,7 +20,7 @@ jobs:
       - name: Build and Publish released version
         uses: samuelmeuli/action-maven-publish@v1.4.0
         with:
-          maven_profiles: artifact-deploy
+          maven_profiles: spring-repo,artifact-deploy
           maven_args: -Dsonar.login=${{ secrets.sonar_token }} -DaltDeploymentRepository=sonatype-nexus-staging::default::https://oss.sonatype.org/service/local/staging/deploy/maven2/
           gpg_private_key: ${{ secrets.gpg_private_key }}
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
