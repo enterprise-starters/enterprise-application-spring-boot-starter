@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.0-M3</version>
+		<version>2.4.0-M4</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -391,6 +391,55 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>spring-repo</id>
+			<repositories>
+				<repository>
+					<id>spring-release</id>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/release</url>
+				</repository>
+				<repository>
+					<id>spring-milestone</id>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/milestone</url>
+				</repository>
+				<repository>
+					<id>spring-snapshot</id>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/snapshot</url>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>spring-release</id>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/release</url>
+				</pluginRepository>
+				<pluginRepository>
+					<id>spring-milestone</id>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/milestone</url>
+				</pluginRepository>
+				<pluginRepository>
+					<id>spring-snapshot</id>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<url>https://repo.spring.io/snapshot</url>
+				</pluginRepository>
+			</pluginRepositories>
 		</profile>
 	</profiles>
 </project>
