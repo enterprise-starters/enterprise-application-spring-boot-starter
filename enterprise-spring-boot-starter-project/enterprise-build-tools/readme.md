@@ -35,7 +35,7 @@ Im Ordner `src\main\resources\eclipse` sind _Formatter_- sowie _Cleanup_-Vorlage
 Am Beispiel Java hier eine Anleitung:
 - Formatter: `Preferences -> Java -> Code Style -> Formatter` dort dann über `Import...` die entsprechende Datei auswählen.
 - Cleanup: `Preferences -> Java -> Code Style -> Clean Up` dort dann über `Import...` die entsprechende Datei auswählen.
-- Save Actions: `Preferences -> Java -> Editor -> Save Actions` dort gibt es keine Import/Export-Möglichkeit, daher muss hier manuell die Konfiguration entsprechend dem Screenshot angpeasst werden.
+- Save Actions: `Preferences -> Java -> Editor -> Save Actions` dort gibt es keine Import/Export-Möglichkeit, daher muss hier manuell die Konfiguration entsprechend dem Screenshot angepasst werden.
 
 ### IntelliJ
 IntelliJ bietet ähnlich zu Eclipse eine Import/Export-Funktion für Formatter u.Ä., welche über die Settings erreichbar ist. Die Settings werden mit `Ctrl+Alt+S` aufgerufen.
