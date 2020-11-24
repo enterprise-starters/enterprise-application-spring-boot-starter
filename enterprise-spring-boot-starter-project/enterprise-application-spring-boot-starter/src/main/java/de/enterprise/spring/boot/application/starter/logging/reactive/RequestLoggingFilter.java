@@ -1,9 +1,12 @@
 package de.enterprise.spring.boot.application.starter.logging.reactive;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -71,6 +74,8 @@ public class RequestLoggingFilter implements WebFilter, Ordered {
 
 	private String afterMessageSuffix = DEFAULT_AFTER_MESSAGE_SUFFIX;
 	private int order = Ordered.LOWEST_PRECEDENCE - 11;
+
+	private List<String> sensitiveHeaders;
 
 	@Override
 	public int getOrder() {
@@ -153,8 +158,7 @@ public class RequestLoggingFilter implements WebFilter, Ordered {
 		msg.append("status=").append(responseStatus.value());
 
 		if (this.isIncludeHeaders()) {
-			// TODO mask sensitive headers
-			msg.append(", headers=").append(response.getHeaders());
+			msg.append(", headers=").append(createHeaders(response.getHeaders()));
 		}
 
 		// if (this.isIncludePayload()) {
@@ -223,11 +227,24 @@ public class RequestLoggingFilter implements WebFilter, Ordered {
 		}
 
 		if (this.isIncludeHeaders()) {
-			msg.append(";headers=").append(exchange.getRequest().getHeaders());
+			msg.append(";headers=").append(createHeaders(exchange.getRequest().getHeaders()));
 		}
 
 		msg.append(suffix);
 		return msg.toString();
+	}
+
+	private String createHeaders(HttpHeaders headers) {
+		List<String> resultList = new ArrayList<>();
+		headers.forEach((key, value) -> {
+			if (this.sensitiveHeaders != null && this.sensitiveHeaders.contains(key)) {
+				resultList.add(key + ":\"**********\"");
+			} else {
+				value.forEach(v -> resultList.add(String.format("%s:\"%s\"", key, v)));
+			}
+		});
+
+		return resultList.toString();
 	}
 
 	@ManagedOperation
@@ -320,5 +337,13 @@ public class RequestLoggingFilter implements WebFilter, Ordered {
 
 	protected boolean shouldLog(ServerHttpRequest request) {
 		return true;
+	}
+
+	public void setSensitiveHeaders(List<String> sensitiveHeaders) {
+		this.sensitiveHeaders = sensitiveHeaders;
+	}
+
+	public List<String> getSensitiveHeaders() {
+		return this.sensitiveHeaders;
 	}
 }

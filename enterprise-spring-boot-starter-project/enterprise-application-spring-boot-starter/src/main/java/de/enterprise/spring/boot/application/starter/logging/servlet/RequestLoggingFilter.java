@@ -299,11 +299,13 @@ public class RequestLoggingFilter extends AbstractRequestLoggingFilter {
 		return super.isIncludePayload();
 	}
 
-	// TODO @ManagedOperation ergänzen?
+	@ManagedOperation(description = "set sensitive header filter")
+	@ManagedOperationParameter(name = "sensitiveHeaders", description = "set sensitive header value")
 	public void setSensitiveHeaders(List<String> sensitiveHeaders) {
 		this.sensitiveHeaders = sensitiveHeaders;
 	}
 
+	@ManagedOperation(description = "get list of sensitive headers")
 	public List<String> getSensitiveHeaders() {
 		return this.sensitiveHeaders;
 	}
