@@ -42,6 +42,7 @@ public class LoggingAutoConfiguration {
 			requestLoggingFilter.setIncludePayload(loggingProperties.isLogIncomingRequestWithPayload());
 			requestLoggingFilter.setMaxPayloadLength(loggingProperties.getLogIncomingRequestMaxPayloadLength());
 			requestLoggingFilter.setIncludeHeaders(loggingProperties.isLogIncomingRequestWithHeaders());
+			requestLoggingFilter.setSensitiveHeaders(loggingProperties.getSensitiveIncomingHeaders());
 			requestLoggingFilter.setIncludeClientInfo(loggingProperties.isLogIncomingRequestWithClientInfo());
 
 			return requestLoggingFilter;

@@ -43,6 +43,7 @@ public class LoggingProperties {
 	private boolean logIncomingRequestWithPayload;
 	private int logIncomingRequestMaxPayloadLength;
 	private boolean logIncomingRequestWithHeaders;
+	private List<String> sensitiveIncomingHeaders;
 	private boolean logIncomingRequestWithClientInfo;
 	private int filterOrder = OrderedFilter.REQUEST_WRAPPER_FILTER_MAX_ORDER - 102;
 
