@@ -5,7 +5,7 @@
 
 # Enterprise-Spring-Boot-Starter
 
-Spring-Boot Version: 2.4.0-M2
+Spring-Boot Version: 2.4.0
 
 ## Was ist der Enterprise-Starter?
 
