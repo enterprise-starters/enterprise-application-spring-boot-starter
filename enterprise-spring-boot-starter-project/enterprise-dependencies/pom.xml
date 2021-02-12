@@ -37,7 +37,7 @@
 		<enterprise-common.version>2.4.1-SNAPSHOT</enterprise-common.version>
 		<enterprise-build-tools.version>2.4.1-SNAPSHOT</enterprise-build-tools.version>
 
-		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+		<spring-cloud.version>2020.0.1</spring-cloud.version>
 		<hazelcast-aws.version>2.1.0</hazelcast-aws.version>
 		<micrometer-registry-cloudwatch.version>1.6.2</micrometer-registry-cloudwatch.version>
 		<hazelcast.version>3.11.5</hazelcast.version>
