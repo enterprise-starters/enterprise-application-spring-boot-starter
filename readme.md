@@ -43,17 +43,13 @@ Insgesamt bietet das Enterprise-Starter-Projekt eine sehr gute Basis für die En
 - Maven
 
 ## Wie nutze ich den Enterprise-Starter?
-1. Jeder Entwickler muss seine Entwicklungsumgebung einrichten. Die Anleitung dazu ist in der [readme.md von build-tools](./enterprise-spring-boot-starter-project/enterprise-build-tools/readme.md) zu finden. 
+1. Alle Entwickler sollten ihre Arbeitsumgebung so einrichten, dass eine optimale Zusammenarbeit gewährleistet ist. Welche Schritte dazu notwendig sind, ist im [Enterprise Project Startup Kit](https://github.com/enterprise-starters/enterprise-project-startup-kit) beschrieben.
 2. Für jeden Service (Spring-Boot-Anwendung) der entwickelt wird, sind gewisse Schritte notwendig, um den des Enterprise-Starter in die Anwendung zu integrieren. Diese sind [hier](./enterprise-spring-boot-starter-project/docs/howto-integrate.md) beschrieben.
 
-# Dokumentationen <!-- und Tutorials -->
+# Dokumentationen und Tutorials
 
 ## Tutorials
 Die Idee der Tutorials ist, die Features der Enterprise-Starter-Toolbox aufzuzeigen. Jedes Tutorial ist so konzipiert, dass es Schritt für Schritt nachprogrammiert werden kann. 
-
-<!-- Zu jedem Tutorial gibt es ein separates Git-Repository, in dem der zugehörige Quellcode abgelegt ist.
-Jeder Schritt aus dem Tutorial ist dort in der Commit-Historie nachvollziehbar.
--->
 
 Folgende Tutorials gibt es zum Enterprise-Spring-Boot-Starter:
 - [Basis Tutorial](./enterprise-spring-boot-starter-tutorials/tutorial-basics/README.md)
@@ -74,8 +70,8 @@ Weitere Ideen für Tutorials
     - Lombok
     -->
 
-## Übersicht über alle Dokumentationen
-- [Readme Buildtoos](enterprise-spring-boot-starter-project/enterprise-build-tools/readme.md)
+## Übersicht über die wichtigsten Dokumentationen
+- [Enterprise Project Startup Kit](https://github.com/enterprise-starters/enterprise-project-startup-kit)
   - Einrichten der Arbeitsumgebung
 - [Howto Integration](./enterprise-spring-boot-starter-project/docs/howto-integrate.md)
   - Integration des Enterprise-Starters in eine Spring-Boot-Anwendung

@@ -11,7 +11,7 @@ Definiert die Maven-Module. Notwendig für den Build-Prozess, damit alle Artefak
 - __enterprise-common__ <br>
 Gemeinsam genutzte Basis-Klassen - keine Spring-Abhängigkeiten.
 - __enterprise-build-tools__ <br>
-IDE-Einrichtung und Dateien für den Build-Prozess (z.B. Checkstyle-Regeln)
+Konfigurationen für den Build-Prozess (z.B. Checkstyle-Regeln)
 - __enterprise-dependencies__ <br>
 Definition von Versionen von Maven-Dependencies und -Modulen
 - __enterprise-application-parent__ <br>

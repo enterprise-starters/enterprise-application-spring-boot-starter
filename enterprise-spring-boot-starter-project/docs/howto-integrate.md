@@ -8,7 +8,7 @@ Eine genauere Beschreibungen der Features findet sich in den readme-Dateien der 
 - [Readme des enterprise-application-spring-boot-starter](../enterprise-application-spring-boot-starter/README.md)
 - [Readme des enterprise-application-parent](../enterprise-application-parent/README.md)
 
-Bevor mit der konkreten Entwicklung - also mit diesem Tutorial - losgelegt wird, empfiehlt es sich die [Anleitung zur Einrichtung der Arbeitsumgebung](../enterprise-build-tools/readme.md#einrichten-der-arbeitsumgebung) durchzuarbeiten.
+Bevor mit der konkreten Entwicklung - also mit diesem Tutorial - losgelegt wird, empfiehlt es sich die Anleitung zur Einrichtung der Arbeitsumgebung im [Enterprise Project Startup Kit](https://github.com/enterprise-starters/enterprise-project-startup-kit) durchzuarbeiten.
 
 ---
 
@@ -215,7 +215,7 @@ Am einfachsten ist es, edes neue Projekt über start.spring.io erzeugen. Dann we
 
 ### Verwendung von Lombok
 - Zur Vermeidung von Boilerplate Code (Getter, Setter, etc) sollte Lombok verwendet werden.
-- Die Installation und notwendige Konfiguration ist in der [readme von enterprise-build-tools](../enterprise-build-tools/readme.md#lombok) beschrieben.
+- Die Installation und notwendige Konfiguration ist im [Enterprise Project Startup Kit](https://github.com/enterprise-starters/enterprise-project-startup-kit) beschrieben.
 - Bei Verwendung des enterprise-application-parent ist Lombok bereits als Dependency konfiguriert.
 
 ### Erzeugen eines Projekt-Banners
