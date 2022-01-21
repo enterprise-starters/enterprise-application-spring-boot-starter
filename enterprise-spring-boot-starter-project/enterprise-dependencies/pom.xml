@@ -40,7 +40,7 @@
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<hazelcast-aws.version>2.1.0</hazelcast-aws.version>
 		<micrometer-registry-cloudwatch.version>1.6.2</micrometer-registry-cloudwatch.version>
-		<hazelcast.version>3.11.5</hazelcast.version>
+		<hazelcast.version>4.0.5</hazelcast.version>
 		<hazelcast-kubernetes.version>1.5.2</hazelcast-kubernetes.version>
 		<hazelcast-hibernate.version>1.3.2</hazelcast-hibernate.version>
 		<spring-security-rsa.version>1.0.9.RELEASE</spring-security-rsa.version>
